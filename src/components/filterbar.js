@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from "react";
 
 const genres = [
   "Action",
@@ -267,30 +267,30 @@ const genres = [
   "Super Robot",
   "Cute Girls Doing Cute Things",
   "Family Life",
-  "Iyashikei"
-]
+  "Iyashikei",
+];
 
-function FilterBar() {
-  const [btnG, setBtnG] = useState(true)
-  const [btnF, setBtnF] = useState(true)
-  const [btnS, setBtnS] = useState(true)
+function FilterBar(props) {
+  const [btnG, setBtnG] = useState(true);
+  const [btnF, setBtnF] = useState(true);
+  const [btnS, setBtnS] = useState(true);
 
   useEffect(() => {
-    document.querySelector('#arrow-genre').onclick = () => {
-      document.querySelector('#list-genre').classList.toggle('active')
-      setBtnG(!btnG)
-    }
+    document.querySelector("#arrow-genre").onclick = () => {
+      document.querySelector("#list-genre").classList.toggle("active");
+      setBtnG(!btnG);
+    };
 
-    document.querySelector('#arrow-filter').onclick = () => {
-      document.querySelector('#list-filter').classList.toggle('active')
-      setBtnF(!btnF)
-    }
+    document.querySelector("#arrow-filter").onclick = () => {
+      document.querySelector("#list-filter").classList.toggle("active");
+      setBtnF(!btnF);
+    };
 
-    document.querySelector('#arrow-season').onclick = () => {
-      document.querySelector('#list-season').classList.toggle('active')
-      setBtnS(!btnS)
-    }
-  },[btnG, btnF, btnS])
+    document.querySelector("#arrow-season").onclick = () => {
+      document.querySelector("#list-season").classList.toggle("active");
+      setBtnS(!btnS);
+    };
+  }, [btnG, btnF, btnS]);
 
   return (
     <>
@@ -301,94 +301,163 @@ function FilterBar() {
           <span className="">History</span>
         </div>
         <div className="search-box">
-          <box-icon name='search' color='#9e9ea8' ></box-icon>
-          <input type="text" placeholder="Search your anime here"/>
+          <box-icon name="search" color="#9e9ea8"></box-icon>
+          <input type="text" placeholder="Search your anime here" />
         </div>
         <div className="selection">
-            <div>
-              <span>Genres</span>
-              <box-icon name={btnG ? 'chevron-up' : 'chevron-down'} id="arrow-genre" type="solid" color="#ffffff"></box-icon>
-            </div> 
-            <ul className="" id="list-genre">
-              {genres.sort().map((genre, index) => {
-                  return (
-                    <li htmlFor={`check${index}`} key={index}>
-                      <input type="checkbox" id={`check${index}`}/>
-                      <label htmlFor={`check${index}`}>{genre}</label>
-                    </li>
-                  )
-              })}
-            </ul>
+          <div>
+            <span>Genres</span>
+            <box-icon
+              name={btnG ? "chevron-up" : "chevron-down"}
+              id="arrow-genre"
+              type="solid"
+              color="#ffffff"
+            ></box-icon>
+          </div>
+          <ul className="" id="list-genre">
+            {genres.sort().map((genre, index) => {
+              return (
+                <li htmlFor={`check${index}`} key={index}>
+                  <input
+                    type="checkbox"
+                    id={`check${index}`}
+                    checked={props.genresArray.includes(genre)}
+                    onChange={() => {
+                      props.genresHandle(`${genre}`);
+                    }}
+                  />
+                  <label htmlFor={`check${index}`}>{genre}</label>
+                </li>
+              );
+            })}
+          </ul>
         </div>
         <div className="status">
           <div>
             <span>Status</span>
-            <box-icon name={btnF ? 'chevron-up' : 'chevron-down'} id="arrow-filter" type="solid" color="#ffffff"></box-icon>
-          </div> 
+            <box-icon
+              name={btnF ? "chevron-up" : "chevron-down"}
+              id="arrow-filter"
+              type="solid"
+              color="#ffffff"
+            ></box-icon>
+          </div>
           <ul className="" id="list-filter">
             <li>
-              <input className="filter-check" type="radio" name="status" id='check-status-0'/>
-              <label htmlFor='check-status-0'>
-              Finished
-              </label>
+              <input
+                className="filter-check"
+                type="radio"
+                name="status"
+                onChange={() => {
+                  props.statusHandle("0");
+                }}
+                id="check-status-0"
+              />
+              <label htmlFor="check-status-0">Finished</label>
             </li>
             <li>
-              <input className="filter-check" type="radio" name="status" id='check-status-1'/>
-              <label htmlFor='check-status-1'>
-              Ongoing
-              </label>
+              <input
+                className="filter-check"
+                type="radio"
+                name="status"
+                onChange={() => {
+                  props.statusHandle("1");
+                }}
+                id="check-status-1"
+              />
+              <label htmlFor="check-status-1">Ongoing</label>
             </li>
             <li>
-              <input className="filter-check" type="radio" name="status" id='check-status-2'/>
-              <label htmlFor='check-status-2'>
-              Upcoming
-              </label>
+              <input
+                className="filter-check"
+                type="radio"
+                name="status"
+                onChange={() => {
+                  props.statusHandle("2");
+                }}
+                id="check-status-2"
+              />
+              <label htmlFor="check-status-2">Upcoming</label>
             </li>
             <li>
-              <input className="filter-check" type="radio" name="status" id='check-status-3'/>
-              <label htmlFor='check-status-3'>
-              Cancelled
-              </label>
+              <input
+                className="filter-check"
+                type="radio"
+                name="status"
+                onChange={() => {
+                  props.statusHandle("3");
+                }}
+                id="check-status-3"
+              />
+              <label htmlFor="check-status-3">Cancelled</label>
             </li>
           </ul>
         </div>
         <div className="season">
           <div>
             <span>Season</span>
-            <box-icon name={btnS ? 'chevron-up' : 'chevron-down'} id="arrow-season" type="solid" color="#ffffff"></box-icon>
-          </div> 
+            <box-icon
+              name={btnS ? "chevron-up" : "chevron-down"}
+              id="arrow-season"
+              type="solid"
+              color="#ffffff"
+            ></box-icon>
+          </div>
           <ul className="" id="list-season">
             <li key="0">
-              <input className="season-check" type="radio" name="season" id='check-season-0'/>
-              <label htmlFor='check-season-0'>
-              Winter
-              </label>
+              <input
+                className="season-check"
+                type="radio"
+                name="season"
+                onChange={() => {
+                  props.seasonHandle("0");
+                }}
+                id="check-season-0"
+              />
+              <label htmlFor="check-season-0">Winter</label>
             </li>
             <li key="1">
-              <input className="season-check" type="radio" name="season" id='check-season-1'/>
-              <label htmlFor='check-season-1'>
-              Spring
-              </label>
+              <input
+                className="season-check"
+                type="radio"
+                name="season"
+                onChange={() => {
+                  props.seasonHandle("1");
+                }}
+                id="check-season-1"
+              />
+              <label htmlFor="check-season-1">Spring</label>
             </li>
             <li key="2">
-              <input className="season-check" type="radio" name="season" id='check-season-2'/>
-              <label htmlFor='check-season-2'>
-              Summer
-              </label>
+              <input
+                className="season-check"
+                type="radio"
+                name="season"
+                onChange={() => {
+                  props.seasonHandle("2");
+                }}
+                id="check-season-2"
+              />
+              <label htmlFor="check-season-2">Summer</label>
             </li>
             <li key="3">
-              <input className="season-check" type="radio" name="season" id='check-season-3'/>
-              <label htmlFor='check-season-3'>
-              Fall
-              </label>
+              <input
+                className="season-check"
+                type="radio"
+                name="season"
+                onChange={() => {
+                  props.seasonHandle("3");
+                }}
+                id="check-season-3"
+              />
+              <label htmlFor="check-season-3">Fall</label>
             </li>
           </ul>
         </div>
-        <div className="apply">
+        <button onClick={props.handleClickFilter} className="apply">
           <span>Apply filter</span>
-        </div>
+        </button>
       </div>
-
     </>
   );
 }

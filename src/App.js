@@ -1,6 +1,5 @@
 import Navigation from "./components/toppopular";
-import FilterBar from "./components/filterbar";
-import RightRender from "./components/rightrender";
+import BodyContainer from "./components/bodycontainer"
 import "./responsive.css";
 import "./style.scss";
 import "boxicons";
@@ -16,12 +15,7 @@ function App() {
 
       <div className="body grid wide">
         <div className="body-container row">
-          <div className="left-container col c-3">
-            <FilterBar />
-          </div>
-          <div className="right-container col c-9">
-            <RightRender />
-          </div>
+          <BodyContainer />
         </div>
       </div>
     </>
