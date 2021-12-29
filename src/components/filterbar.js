@@ -111,7 +111,6 @@ const genres = [
   "Space",
   "Urban Fantasy",
   "Virtual World",
-  "4-Koma",
   "Achromatic",
   "Advertisement",
   "Anthology",
@@ -272,8 +271,8 @@ const genres = [
 
 function FilterBar(props) {
   const [btnG, setBtnG] = useState(true);
-  const [btnF, setBtnF] = useState(true);
-  const [btnS, setBtnS] = useState(true);
+  const [btnF, setBtnF] = useState(false);
+  const [btnS, setBtnS] = useState(false);
 
   useEffect(() => {
     document.querySelector("#arrow-genre").onclick = () => {
@@ -302,7 +301,11 @@ function FilterBar(props) {
         </div>
         <div className="search-box">
           <box-icon name="search" color="#9e9ea8"></box-icon>
-          <input type="text" placeholder="Search your anime here" />
+          <input
+            type="text"
+            placeholder="Search your anime here"
+            onChange={(e) => {props.titleHandle(e.target.value)}}
+          />
         </div>
         <div className="selection">
           <div>
@@ -342,7 +345,7 @@ function FilterBar(props) {
               color="#ffffff"
             ></box-icon>
           </div>
-          <ul className="" id="list-filter">
+          <ul className="active" id="list-filter">
             <li>
               <input
                 className="filter-check"
@@ -403,7 +406,7 @@ function FilterBar(props) {
               color="#ffffff"
             ></box-icon>
           </div>
-          <ul className="" id="list-season">
+          <ul className="active" id="list-season">
             <li key="0">
               <input
                 className="season-check"

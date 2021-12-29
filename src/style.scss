@@ -761,6 +761,29 @@ button {
   
 }
 
+.nothing {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+
+  img {
+    height: 350px;
+    width: 350px;
+    position: relative;
+    left: -10px;
+  }
+
+  span {
+    color: #fff;
+  width: 100%;
+  text-align: center;
+  font-size: 1.6rem;
+  }
+}
+
 @keyframes opa {
   0% {
     opacity: 0;
