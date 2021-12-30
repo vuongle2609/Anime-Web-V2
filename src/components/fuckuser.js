@@ -15,7 +15,8 @@ function Fuckusers({ firstSearch, isLoading }) {
   } else if (isLoading) {
     return (
       <>
-        <div className="nothing">
+        <div className="nothingFilter"></div>
+        <div className="nothing load">
           <img src={Chay} className="nothing" alt="" />
           <span className="nothingT">Dang tai</span>
         </div>
@@ -26,7 +27,7 @@ function Fuckusers({ firstSearch, isLoading }) {
       <>
         <div className="nothing">
           <img src={Dam} className="nothing" alt="" />
-          <span className="nothingT">Ban da nhap cai lon gi dau</span>
+          <span className="nothingT">Hoac la khong tim thay hoac la ban chua nhap cai lon gi ca</span>
         </div>
       </>
     );

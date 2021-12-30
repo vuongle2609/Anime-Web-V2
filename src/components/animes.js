@@ -10,7 +10,7 @@ function AnimeBoxes({ display, apiFilter, firstSearch, setFirstSearch }) {
   const prevApi = useRef("");
 
   useEffect(() => {
-    setDataA("")
+    setDataA("");
     if (apiFilter === "") {
       setDataA("");
     } else if (!animeData.current || prevApi !== apiFilter) {

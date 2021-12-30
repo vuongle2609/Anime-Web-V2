@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-function NavSort({ display, setL, setD }) {
+function NavSort({ setL, setD }) {
 
     const [iconColor1, setIconColor1] = useState("#fbaa33")
     const [iconColor2, setIconColor2] = useState("#9e9eb9")

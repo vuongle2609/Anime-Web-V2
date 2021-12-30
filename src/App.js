@@ -1,5 +1,7 @@
-import Navigation from "./components/toppopular";
-import BodyContainer from "./components/bodycontainer"
+import Navigation from "./components/navbar";
+import Search from "./components/searchcontainer";
+import Home from "./components/homecontainer";
+import { Routes, Route } from "react-router-dom";
 import "./responsive.css";
 import "./style.scss";
 import "boxicons";
@@ -7,16 +9,13 @@ import "boxicons";
 function App() {
   return (
     <>
-      <div className=" header grid wide">
-        <div className="popular">
-          <Navigation />
-        </div>
-      </div>
+      <Navigation />
 
-      <div className="body grid wide">
-        <div className="body-container row">
-          <BodyContainer />
-        </div>
+      <div>
+        <Routes>
+          <Route path="/Home" element={<Home />}/>
+          <Route path="/Search" element={<Search />} />          
+        </Routes>
       </div>
     </>
   );

@@ -2,13 +2,13 @@ import { useState } from "react";
 import FilterBar from "./filterbar";
 import RightRender from "./rightrender";
 
-function BodyContainer() {
+function Search() {
   const [season, setSeason] = useState();
   const [status, setstatus] = useState();
   const [genres, setGenres] = useState([]);
   const [title, setTitle] = useState("");
   const [apiFilter, setapiFilter] = useState("");
-  const [firstSearch, setFirstSearch] = useState(true)
+  const [firstSearch, setFirstSearch] = useState(true);
 
   const seasonHandle = (value) => {
     setSeason(value);
@@ -34,8 +34,13 @@ function BodyContainer() {
   };
 
   const handleClickFilter = () => {
-    if (season === undefined && status === undefined && genres.length === 0 && title === "") {
-      setapiFilter("")
+    if (
+      season === undefined &&
+      status === undefined &&
+      genres.length === 0 &&
+      title === ""
+    ) {
+      setapiFilter("");
     } else {
       const genresString = genres.join(",").split(" ").join("%20");
       setapiFilter(() => {
@@ -50,21 +55,29 @@ function BodyContainer() {
 
   return (
     <>
-      <div className="left-container col c-3">
-        <FilterBar
-          seasonHandle={seasonHandle}
-          titleHandle={titleHandle}
-          handleClickFilter={handleClickFilter}
-          statusHandle={statusHandle}
-          genresArray={genres}
-          genresHandle={genresHandle}
-        />
-      </div>
-      <div className="right-container col c-9">
-        <RightRender apiFilter={apiFilter} firstSearch={firstSearch} setFirstSearch={setFirstSearch}/>
+      <div className="body grid wide">
+        <div className="body-container row">
+          <div className="left-container col c-3">
+            <FilterBar
+              seasonHandle={seasonHandle}
+              titleHandle={titleHandle}
+              handleClickFilter={handleClickFilter}
+              statusHandle={statusHandle}
+              genresArray={genres}
+              genresHandle={genresHandle}
+            />
+          </div>
+          <div className="right-container col c-9">
+            <RightRender
+              apiFilter={apiFilter}
+              firstSearch={firstSearch}
+              setFirstSearch={setFirstSearch}
+            />
+          </div>
+        </div>
       </div>
     </>
   );
 }
 
-export default BodyContainer;
+export default Search
