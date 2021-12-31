@@ -1,6 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700&display=swap");
 
 $base-color: #fbaa33;
+$gray-color: #9e9eb9;
 
 html {
   font-size: 62.5%;
@@ -111,9 +112,16 @@ button {
 
 .body {
   background-color: #1f1d2b;
-  height: 91vh;
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
+}
+
+.body.search {
+  height: 91vh;
+}
+
+.body.home {
+  min-height: 91vh;
 }
 
 .body-container {
@@ -141,7 +149,7 @@ button {
   justify-content: space-between;
 
   span {
-    color: #9e9eb9;
+    color: $gray-color;
     font-size: 1.6rem;
   }
 
@@ -225,7 +233,7 @@ button {
       width: 100%;
 
       label {
-        color: #9e9eb9;
+        color: $gray-color;
         font-size: 1.4rem;
         line-height: 1.8rem;
         padding-left: 10px;
@@ -234,7 +242,7 @@ button {
       input {
         width: 14px;
         height: 14px;
-        background-color: #9e9eb9;
+        background-color: $gray-color;
         border-radius: 50%;
         vertical-align: middle;
         border: none;
@@ -330,7 +338,7 @@ button {
       width: 50%;
 
       label {
-        color: #9e9eb9;
+        color: $gray-color;
         font-size: 1.4rem;
         line-height: 1.8rem;
         padding-left: 10px;
@@ -339,7 +347,7 @@ button {
       input {
         width: 14px;
         height: 14px;
-        background-color: #9e9eb9;
+        background-color: $gray-color;
         border-radius: 50%;
         vertical-align: middle;
         border: none;
@@ -416,7 +424,7 @@ button {
       width: 50%;
 
       label {
-        color: #9e9eb9;
+        color: $gray-color;
         font-size: 1.4rem;
         line-height: 1.8rem;
         padding-left: 10px;
@@ -425,7 +433,7 @@ button {
       input {
         width: 14px;
         height: 14px;
-        background-color: #9e9eb9;
+        background-color: $gray-color;
         border-radius: 50%;
         vertical-align: middle;
         border: none;
@@ -565,11 +573,11 @@ button {
 
     box-icon:hover {
       cursor: pointer;
-      transform: scale(110%)
+      transform: scale(110%);
     }
 
     box-icon:active {
-      transform: scale(98%)
+      transform: scale(98%);
     }
   }
 }
@@ -621,7 +629,7 @@ button {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        border-bottom: 1px solid #9e9eb9;
+        border-bottom: 1px solid $gray-color;
         padding-bottom: 8px;
         margin-bottom: 8px;
 
@@ -641,7 +649,7 @@ button {
       margin-bottom: 6px;
 
       span {
-        color: #9e9eb9;
+        color: $gray-color;
       }
     }
   }
@@ -665,7 +673,7 @@ button {
     div {
       margin-top: 8px;
       padding-top: 4px;
-      border-top: 1px solid #9e9eb9;
+      border-top: 1px solid $gray-color;
       display: flex;
       justify-content: flex-end;
 
@@ -709,7 +717,7 @@ button {
   &:hover {
     transform: scale(104%);
     cursor: pointer;
-  
+
     div:last-child {
       p:first-child {
         color: $base-color;
@@ -736,7 +744,7 @@ button {
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;
     padding: 10px 10px;
-    
+
     p {
       font-size: 1.1rem;
       color: #fff;
@@ -744,10 +752,10 @@ button {
 
       span {
         font-size: 1.1rem;
-        color: #9e9eb9;
+        color: $gray-color;
       }
     }
-  
+
     p:first-child {
       transition: all 0.1s ease-in;
       font-size: 1.5rem;
@@ -760,7 +768,6 @@ button {
       min-height: 42px;
     }
   }
-  
 }
 
 .nothing {
@@ -781,9 +788,9 @@ button {
 
   span {
     color: #fff;
-  width: 100%;
-  text-align: center;
-  font-size: 1.6rem;
+    width: 100%;
+    text-align: center;
+    font-size: 1.6rem;
   }
 }
 
@@ -796,7 +803,6 @@ button {
   background-color: transparent;
 }
 
-
 @keyframes opa {
   0% {
     opacity: 0;
@@ -805,4 +811,131 @@ button {
   100% {
     opacity: 1;
   }
+}
+
+.nav-category {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 10px 10px;
+
+  h2 {
+    font-size: 1.6rem;
+    color: #fff;
+  }
+
+  span {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.4rem;
+
+    &:hover {
+      cursor: pointer;
+    }
+
+    span {
+      color: $gray-color;
+    }
+  }
+}
+
+.slider-cover {
+  padding: 0 10px;
+}
+
+.slick-list {
+  border-radius: 10px;
+}
+
+.slider-items {
+  height: 270px;
+  background-size: cover;
+  background-position: center;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+
+  div {
+    height: 80%;
+    background-image: linear-gradient(transparent, rgba(0, 0, 0, 0.795));
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+
+    &:hover {
+      cursor: pointer;
+
+      h2 {
+        color: $base-color;
+        font-size: 2.2rem;
+      }
+    }
+
+    h2,
+    span {
+      color: #fff;
+      margin: 0 14px 0 14px;
+    }
+
+    h2 {
+      font-size: 1.8rem;
+      line-height: 2.5rem;
+      font-weight: 400;
+      transition: all 0.1s ease-in;
+    }
+
+    span {
+      margin: 10px 14px 14px;
+      font-size: 1.4rem;
+
+      span {
+        color: rgb(192, 191, 191);
+        margin: 0 10px;
+      }
+    }
+  }
+}
+
+.arrows {
+  position: absolute;
+  top: 104%;
+  display: flex;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+$space-arrow: 35%;
+
+.right-arrow {
+  z-index: 1;
+  right: $space-arrow;
+}
+
+.left-arrow {
+  z-index: 1;
+  left: $space-arrow;
+}
+
+.slick-dots li button {
+  background: #9c9cb7 !important;
+  text-indent: -9999px;
+  width: 8px !important;
+  height: 8px !important;
+  overflow: hidden;
+}
+
+.slick-dots .slick-active button {
+  background: $base-color !important;
+  width: 14px !important;
+  height: 14px !important;
+}
+
+.slick-dots {
+  position: absolute;
+  top: 107%;
 }

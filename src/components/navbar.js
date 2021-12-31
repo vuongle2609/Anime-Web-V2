@@ -28,8 +28,8 @@ function Navigation() {
             <span>Paff Wandering</span>
           </div>
           <div className="nav">
-            <Link to="/"><span className=" nav-items">Home</span></Link>
-            <Link to="/Search"><span className="active nav-items">Search</span></Link>
+            <Link to="/Home"><span className="active nav-items">Home</span></Link>
+            <Link to="/Search"><span className=" nav-items">Search</span></Link>
             <span>
               <div
                 style={{
