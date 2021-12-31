@@ -47,7 +47,7 @@ function Search() {
         return `https://api.aniapi.com/v1/anime?title=${title}${
           status ? `&status=${status}` : ""
         }${season ? `&season=${season}` : ""}${
-          genresString != [] ? `&genres=${genresString}` : ""
+          genresString !== [] ? `&genres=${genresString}` : ""
         }&nsfw=true`;
       });
     }

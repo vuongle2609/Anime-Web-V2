@@ -6,7 +6,7 @@ function Navigation() {
     const navItem = document.querySelectorAll('.nav-items')
     for (let i = 0; i < 2; i++) {
       navItem[i].onclick = (e) => {
-        i == 0 ? 
+        i === 0 ? 
         navItem[1].classList.remove('active') : 
         navItem[0].classList.remove('active') 
         e.target.classList.add('active')
@@ -28,7 +28,7 @@ function Navigation() {
             <span>Paff Wandering</span>
           </div>
           <div className="nav">
-            <Link to="/Home"><span className=" nav-items">Home</span></Link>
+            <Link to="/"><span className=" nav-items">Home</span></Link>
             <Link to="/Search"><span className="active nav-items">Search</span></Link>
             <span>
               <div
