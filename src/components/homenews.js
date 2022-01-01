@@ -5,6 +5,7 @@ import BoxAnimeDetail from "./boxdetail";
 function HomeNews() {
   const [animeData, setAnimeData] = useState();
   const animeApi = useRef()
+  let animeCount = 0
 
   useEffect(() => {
     const date = new Date();
@@ -44,12 +45,16 @@ function HomeNews() {
       <NavCategory title="What's New" isD={true} api={animeApi.current} />
       {animeData
         ? animeData.data.documents.map((anime, index) => {
-            if (index < 3) {
+            if (animeCount < 3 && 
+              anime.descriptions.en !== "" && 
+              anime.descriptions.en !== null &&
+              anime.descriptions.en.length > 100) {
               let status = anime.status;
               let season = anime.season_period;
               let genres = anime.genres;
               let description = anime.descriptions;
               let year = anime.season_year;
+              animeCount++
 
               return (
                 <BoxAnimeDetail

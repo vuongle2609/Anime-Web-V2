@@ -677,11 +677,13 @@ button {
       display: flex;
       justify-content: flex-end;
 
-      div:first-child {
-        background-color: $base-color;
+      a {
+        div {
+          background-color: $base-color;
+        }
       }
 
-      div:last-child {
+      div {
         background-color: #2db386;
       }
 

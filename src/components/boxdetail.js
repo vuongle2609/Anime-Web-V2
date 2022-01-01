@@ -10,7 +10,7 @@ function BoxAnimeDetail({
   year,
   description,
   width,
-  id
+  id,
 }) {
   let box_status;
   let box_season;
@@ -56,47 +56,47 @@ function BoxAnimeDetail({
   box_genres = genres[0] + " ," + genres[1];
   return (
     <div className={`col ${width}`}>
-      <Link to="/AnimeDetail" state={{ id: id }}>
-        <div className="box-D-container">
-          <div
-            className="box-D-img"
-            style={{ backgroundImage: `url("${cover}")` }}
-          ></div>
-          <div className="box-main-info">
+      <div className="box-D-container">
+        <div
+          className="box-D-img"
+          style={{ backgroundImage: `url("${cover}")` }}
+        ></div>
+        <div className="box-main-info">
+          <div>
             <div>
-              <div>
-                <h3>{title}</h3>
-                <box-icon color="#fff" name="dots-vertical-rounded"></box-icon>
-              </div>
-              <p>
-                Status : <span>{box_status}</span>
-              </p>
-              <p>
-                Genres : <span>{box_genres}</span>
-              </p>
-              <p>
-                Season :{" "}
-                <span>{box_season ? box_season + " " + year : "Unknown"}</span>
-              </p>
+              <h3>{title}</h3>
+              <box-icon color="#fff" name="dots-vertical-rounded"></box-icon>
             </div>
+            <p>
+              Status : <span>{box_status}</span>
+            </p>
+            <p>
+              Genres : <span>{box_genres}</span>
+            </p>
+            <p>
+              Season :{" "}
+              <span>{box_season ? box_season + " " + year : "Unknown"}</span>
+            </p>
           </div>
-          <div className="box-action">
-            <span>{parse(box_description)}</span>
-            <div>
-              <div>
+        </div>
+        <div className="box-action">
+          <span>{parse(box_description)}</span>
+          <div>
+            <Link to="/AnimeDetail" state={{ id: id }}>
+              <div className="play-btn">
                 <box-icon color="#fff" name="play"></box-icon>
               </div>
-              <div>
-                <box-icon
-                  color="#fff"
-                  name="add-to-queue"
-                  type="solid"
-                ></box-icon>
-              </div>
+            </Link>
+            <div>
+              <box-icon
+                color="#fff"
+                name="add-to-queue"
+                type="solid"
+              ></box-icon>
             </div>
           </div>
         </div>
-      </Link>
+      </div>
     </div>
   );
 }

@@ -2,10 +2,13 @@ import { useState, useEffect, useRef } from 'react'
 import BoxAnimeDetail from "./boxdetail";
 import NavCategory from './navcategory'
 
+
+
 function HomeComing() {
   const [animeData, setAnimeData] = useState();
   const animeApi = useRef()
-
+  let animeCount = 0
+  
   useEffect(() => {
     const date = new Date();
     const year = date.getFullYear();
@@ -45,12 +48,18 @@ function HomeComing() {
 
       {animeData
         ? animeData.data.documents.map((anime, index) => {
-            if (index < 3 && anime.status === 2) {
+            if (animeCount < 3 && 
+              anime.status === 2 && 
+              anime.descriptions.en !== "" && 
+              anime.descriptions.en !== null &&
+              anime.descriptions.en.length > 100
+              ) {
               let status = anime.status;
               let season = anime.season_period;
               let genres = anime.genres;
               let description = anime.descriptions;
               let year = anime.season_year
+              animeCount++
 
               return (
                 <BoxAnimeDetail
