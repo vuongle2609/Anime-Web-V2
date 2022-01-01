@@ -84,6 +84,7 @@ function AnimeBoxes({ display, apiFilter, firstSearch, setFirstSearch }) {
           genres={genres}
           season={season ? season + " " + anime.season_year : "Unknown"}
           description={description}
+          width={"c-6"}
         />
       ) : (
         <BoxAnimeList

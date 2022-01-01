@@ -855,6 +855,7 @@ button {
   background-position: center;
   border-radius: 10px;
   display: flex;
+  overflow: hidden;
   flex-direction: column;
   justify-content: flex-end;
 
@@ -938,4 +939,8 @@ $space-arrow: 35%;
 .slick-dots {
   position: absolute;
   top: 107%;
+}
+
+.home-news {
+  margin-top: 60px;
 }
