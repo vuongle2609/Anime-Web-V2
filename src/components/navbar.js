@@ -28,7 +28,7 @@ function Navigation() {
             <span>Paff Wandering</span>
           </div>
           <div className="nav">
-            <Link to="/Home"><span className="active nav-items">Home</span></Link>
+            <Link to="/"><span className="active nav-items">Home</span></Link>
             <Link to="/Search"><span className=" nav-items">Search</span></Link>
             <span>
               <div

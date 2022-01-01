@@ -28,52 +28,15 @@ function AnimeBoxes({ display, apiFilter, firstSearch, setFirstSearch }) {
   }, [display, apiFilter]);
 
   const animesHandle = (data) => {
-    setIsLoading(false)
-    let status;
-    let season;
-    let genres;
-    let description;
+    setIsLoading(false);
     const animesObj = data;
 
     const htmls = animesObj.data.documents.map((anime, index) => {
-      switch (anime.status) {
-        case 0:
-          status = "Finished";
-          break;
-        case 1:
-          status = "Releasing";
-          break;
-        case 2:
-          status = "Not yet released";
-          break;
-        case 3:
-          status = "Cancelled";
-      }
-
-      if (anime.descriptions.en === "" || anime.descriptions.en === null) {
-        description = "This anime doesn't have an English description yet";
-      } else {
-        description = anime.descriptions.en;
-      }
-
-      switch (anime.season_period) {
-        case 0:
-          season = "Winter";
-          break;
-        case 1:
-          season = "Spring";
-          break;
-        case 2:
-          season = "Summer";
-          break;
-        case 3:
-          season = "Fall";
-          break;
-        case 4:
-          season = "";
-      }
-
-      genres = anime.genres[0] + " ," + anime.genres[1];
+      let status = anime.status;
+      let season = anime.season_period;
+      let genres = anime.genres;
+      let description = anime.descriptions;
+      let year = anime.season_year
 
       return display ? (
         <BoxAnimeDetail
@@ -82,9 +45,11 @@ function AnimeBoxes({ display, apiFilter, firstSearch, setFirstSearch }) {
           title={anime.titles.en}
           status={status}
           genres={genres}
-          season={season ? season + " " + anime.season_year : "Unknown"}
+          season={season}
+          year={year}
           description={description}
           width={"c-6"}
+          id={anime.id}
         />
       ) : (
         <BoxAnimeList
@@ -92,14 +57,16 @@ function AnimeBoxes({ display, apiFilter, firstSearch, setFirstSearch }) {
           cover={anime.cover_image}
           title={anime.titles.en}
           status={status}
-          season={season ? season + " " + anime.season_year : "Unknown"}
+          season={season}
+          year={year}
+          id={anime.id}
         />
       );
     });
     setDataA(htmls);
     setTimeout(() => {
-        setFirstSearch(false)
-    },1000)
+      setFirstSearch(false);
+    }, 1000);
   };
   return (
     <div className="row animes-container">

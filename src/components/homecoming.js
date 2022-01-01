@@ -1,8 +1,8 @@
-import { useState, useEffect, useRef } from "react";
-import NavCategory from "./navcategory";
+import { useState, useEffect, useRef } from 'react'
 import BoxAnimeDetail from "./boxdetail";
+import NavCategory from './navcategory'
 
-function HomeNews() {
+function HomeComing() {
   const [animeData, setAnimeData] = useState();
   const animeApi = useRef()
 
@@ -14,22 +14,22 @@ function HomeNews() {
       case 0:
       case 1:
       case 2:
-        season = 0;
+        season = 1;
         break;
       case 3:
       case 4:
       case 5:
-        season = 1;
+        season = 2;
         break;
       case 6:
       case 7:
       case 8:
-        season = 2;
+        season = 3;
         break;
       case 9:
       case 10:
       case 11:
-        season = 3;
+        season = 0;
     }
     let api = `https://api.aniapi.com/v1/anime?year=${year}&season=${season}&nsfw=true`;
     animeApi.current = api
@@ -40,16 +40,17 @@ function HomeNews() {
   }, []);
 
   return (
-    <div className="row home-news">
-      <NavCategory title="What's New" isD={true} api={animeApi.current} />
+    <div className="row">
+      <NavCategory title="Coming Soon" isD={true} api={animeApi.current} />
+
       {animeData
         ? animeData.data.documents.map((anime, index) => {
-            if (index < 3) {
+            if (index < 3 && anime.status === 2) {
               let status = anime.status;
               let season = anime.season_period;
               let genres = anime.genres;
               let description = anime.descriptions;
-              let year = anime.season_year;
+              let year = anime.season_year
 
               return (
                 <BoxAnimeDetail
@@ -61,7 +62,7 @@ function HomeNews() {
                   season={season}
                   year={year}
                   description={description}
-                  width={"c-4"}
+                  width={'c-4'}
                   id={anime.id}
                 />
               );
@@ -72,4 +73,4 @@ function HomeNews() {
   );
 }
 
-export default HomeNews;
+export default HomeComing;

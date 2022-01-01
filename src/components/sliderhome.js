@@ -1,4 +1,5 @@
 import SliderBox from "./sliderItem";
+import NavCategory from './navcategory'
 import Slider from "react-slick";
 import gate from "../img/banner/gate.jpg";
 import metal from "../img/banner/metal.jpg";
@@ -53,24 +54,21 @@ function HomeSlider() {
     draggable: false,
     responsive: [
       {
-        breakpoint: 480,
+        breakpoint: 1024,
         settings: {
-          slidesToShow: 1
-        }
-      }
-    ]
+          slidesToShow: 1,
+          draggable: true,
+          dots: false,
+          arrows: false,
+        },
+      },
+    ],
   };
 
   return (
     <div className="row">
+      <NavCategory title="Featured" isD={false} />
       <div className="col c-12 slider">
-        <div className="nav-category">
-          <h2>Featured</h2>
-          <span>
-            <span>Show more</span>
-            <box-icon color="#9e9eb9" name="chevron-right"></box-icon>
-          </span>
-        </div>
         <Slider {...settings}>
           <div className="slider-cover">
             <SliderBox
