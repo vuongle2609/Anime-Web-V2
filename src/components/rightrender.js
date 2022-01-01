@@ -6,11 +6,11 @@ function RightRender({ apiFilter, firstSearch, setFirstSearch }) {
   const [display, setDisplay] = useState(false);
 
   const handleDL = () => {
-    setDisplay(!true);
+    setDisplay(false);
   };
 
   const handleDD = () => {
-    setDisplay(!false);
+    setDisplay(true);
   };
 
   return (

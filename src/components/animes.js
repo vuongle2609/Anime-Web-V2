@@ -60,6 +60,7 @@ function AnimeBoxes({ display, apiFilter, firstSearch, setFirstSearch }) {
           season={season}
           year={year}
           id={anime.id}
+          width="c-2-4"
         />
       );
     });

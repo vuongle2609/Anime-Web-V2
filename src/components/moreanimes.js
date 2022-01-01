@@ -1,11 +1,22 @@
 import { useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 import BoxAnimeDetail from "./boxdetail";
+import BoxAnimeList from "./boxlist";
+import NavSort from "./navsort";
 
 function MoreAnimes() {
   const location = useLocation();
   const { api } = location.state;
   const [animeData, setAnimeData] = useState();
+  const [display, setDisplay] = useState(false);
+
+  const handleDL = () => {
+    setDisplay(false);
+  };
+
+  const handleDD = () => {
+    setDisplay(true);
+  };
 
   useEffect(() => {
     fetch(api)
@@ -15,6 +26,7 @@ function MoreAnimes() {
 
   return (
     <div className="body grid wide home">
+      <NavSort display={display} setL={handleDL} setD={handleDD} />
       <div className="body-container row">
         {animeData
           ? animeData.data.documents.map((anime, index) => {
@@ -24,7 +36,7 @@ function MoreAnimes() {
               let description = anime.descriptions;
               let year = anime.season_year;
 
-              return (
+              return display ? (
                 <BoxAnimeDetail
                   key={index}
                   cover={anime.cover_image}
@@ -36,6 +48,17 @@ function MoreAnimes() {
                   description={description}
                   width={"c-4"}
                   id={anime.id}
+                />
+              ) : (
+                <BoxAnimeList
+                  key={index}
+                  cover={anime.cover_image}
+                  title={anime.titles.en}
+                  status={status}
+                  season={season}
+                  year={year}
+                  id={anime.id}
+                  width="c-2"
                 />
               );
             })

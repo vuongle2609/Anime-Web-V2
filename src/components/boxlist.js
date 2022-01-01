@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-function BoxAnimeList({ cover, title, status, season, year, id }) {
+function BoxAnimeList({ cover, title, status, season, year, id, width }) {
   let box_status;
   let box_season;
 
@@ -35,7 +35,7 @@ function BoxAnimeList({ cover, title, status, season, year, id }) {
       box_season = "";
   }
   return (
-    <div className="col c-2-4">
+    <div className={`col ${width}`}>
       <Link to="/AnimeDetail" state={{ id: id }}>
         <div className="box-L-container">
           <div style={{ backgroundImage: `url('${cover}')` }}></div>
