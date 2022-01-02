@@ -1,8 +1,7 @@
 import { useState, useEffect, useRef } from 'react'
 import BoxAnimeDetail from "./boxdetail";
 import NavCategory from './navcategory'
-
-
+import BoxAnimeList from "./boxlist";
 
 function HomeComing() {
   const [animeData, setAnimeData] = useState();
@@ -48,12 +47,8 @@ function HomeComing() {
 
       {animeData
         ? animeData.data.documents.map((anime, index) => {
-            if (animeCount < 3 && 
-              anime.status === 2 && 
-              anime.descriptions.en !== "" && 
-              anime.descriptions.en !== null &&
-              anime.descriptions.en.length > 100
-              ) {
+            if (animeCount < 6 && 
+              anime.status === 2) {
               let status = anime.status;
               let season = anime.season_period;
               let genres = anime.genres;
@@ -62,7 +57,7 @@ function HomeComing() {
               animeCount++
 
               return (
-                <BoxAnimeDetail
+                <BoxAnimeList
                   key={index}
                   cover={anime.cover_image}
                   title={anime.titles.en}
@@ -71,7 +66,7 @@ function HomeComing() {
                   season={season}
                   year={year}
                   description={description}
-                  width={'c-4'}
+                  width={'c-2'}
                   id={anime.id}
                 />
               );

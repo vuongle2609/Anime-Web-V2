@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import NavCategory from "./navcategory";
+import BoxAnimeList from "./boxlist";
 import BoxAnimeDetail from "./boxdetail";
 
 function HomeNews() {
@@ -45,10 +46,7 @@ function HomeNews() {
       <NavCategory title="What's New" isD={true} api={animeApi.current} />
       {animeData
         ? animeData.data.documents.map((anime, index) => {
-            if (animeCount < 3 && 
-              anime.descriptions.en !== "" && 
-              anime.descriptions.en !== null &&
-              anime.descriptions.en.length > 100) {
+            if (animeCount < 6) {
               let status = anime.status;
               let season = anime.season_period;
               let genres = anime.genres;
@@ -57,7 +55,7 @@ function HomeNews() {
               animeCount++
 
               return (
-                <BoxAnimeDetail
+                <BoxAnimeList
                   key={index}
                   cover={anime.cover_image}
                   title={anime.titles.en}
@@ -66,7 +64,7 @@ function HomeNews() {
                   season={season}
                   year={year}
                   description={description}
-                  width={"c-4"}
+                  width={"c-2"}
                   id={anime.id}
                 />
               );
