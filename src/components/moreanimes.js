@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import BoxAnimeDetail from "./boxdetail";
 import BoxAnimeList from "./boxlist";
 import NavSort from "./navsort";
+import Fuckusers from "./fuckuser";
 
 function MoreAnimes() {
   const location = useLocation();
@@ -62,7 +63,7 @@ function MoreAnimes() {
                 />
               );
             })
-          : ""}
+          : <Fuckusers firstSearch={false} isLoading={true}/>}
       </div>
     </div>
   );

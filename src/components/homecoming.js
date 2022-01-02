@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react'
-import BoxAnimeDetail from "./boxdetail";
 import NavCategory from './navcategory'
 import BoxAnimeList from "./boxlist";
+import Fuckusers from "./fuckuser";
 
 function HomeComing() {
   const [animeData, setAnimeData] = useState();
@@ -72,7 +72,7 @@ function HomeComing() {
               );
             }
           })
-        : ""}
+        : <Fuckusers firstSearch={false} isLoading={true}/>}
     </div>
   );
 }
