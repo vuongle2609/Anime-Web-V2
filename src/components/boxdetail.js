@@ -82,7 +82,7 @@ function BoxAnimeDetail({
         <div className="box-action">
           <span>{parse(box_description)}</span>
           <div>
-            <Link to="/AnimeDetail" state={{ id: id }}>
+            <Link to="/AnimeDetail" state={{ id: id }} >
               <div className="play-btn">
                 <box-icon color="#fff" name="play"></box-icon>
               </div>

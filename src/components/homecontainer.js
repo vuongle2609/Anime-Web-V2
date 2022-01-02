@@ -4,7 +4,7 @@ import HomeComing from './homecoming'
 
 function Home() {
   return (
-    <div className="grid wide body home">
+    <div className="grid wide body home fade-in-top">
       <HomeSlider />
       
       <HomeNews />

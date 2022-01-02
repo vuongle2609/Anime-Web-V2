@@ -36,7 +36,7 @@ function BoxAnimeList({ cover, title, status, season, year, id, width }) {
   }
   return (
     <div className={`col ${width}`}>
-      <Link to="/AnimeDetail" state={{ id: id }}>
+      <Link to="/AnimeDetail" state={{ id: id }} >
         <div className="box-L-container">
           <div style={{ backgroundImage: `url('${cover}')` }}></div>
           <div>
