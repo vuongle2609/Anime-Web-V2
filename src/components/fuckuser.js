@@ -27,7 +27,7 @@ function Fuckusers({ firstSearch, isLoading }) {
       <>
         <div className="nothing">
           <img src={Dam} className="nothing" alt="" />
-          <span className="nothingT">Hoac la khong tim thay hoac la ban chua nhap cai lon gi ca</span>
+          <span className="nothingT">Hoac la khong tim thay hoac la ban chua nhap cai lon gi caa</span>
         </div>
       </>
     );
