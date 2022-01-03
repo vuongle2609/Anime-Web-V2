@@ -3,10 +3,10 @@ import NavCategory from './navcategory'
 import Slider from "react-slick";
 import gate from "../img/banner/gate.jpg";
 import metal from "../img/banner/metal.jpg";
-import code from "../img/banner/code.jpg";
 import kimi from "../img/banner/kimi.png";
 import death from "../img/banner/death.png";
 import suzu from "../img/banner/suzu.png";
+import { Link } from 'react-router-dom'
 
 function NextArrow(props) {
   const { className, style, onClick } = props;
@@ -70,47 +70,55 @@ function HomeSlider() {
       <NavCategory title="Featured" isD={false} />
       <div className="col c-12 slider">
         <Slider {...settings}>
+          
           <div className="slider-cover">
+          <Link to="/AnimeDetail?id=1862">
             <SliderBox
               title="Stein;Gate"
               genres="Drama, Sci-Fi, Suspense"
               img={gate}
             />
+            </Link>
           </div>
+          
           <div className="slider-cover">
+          <Link to="/AnimeDetail?id=1487">
             <SliderBox
               title="Fullmetal Alchemist: Brotherhood"
               genres="Action, Adventure, Comedy, Drama, Fantasy"
               img={metal}
             />
+            </Link>
           </div>
+          
           <div className="slider-cover">
-            <SliderBox
-              title="Code Geass"
-              genres="Action, Drama, Sci-Fi"
-              img={code}
-            />
-          </div>
-          <div className="slider-cover">
+          <Link to="/AnimeDetail?id=6529">
             <SliderBox
               title="Kimi no Na wa"
               genres="Drama, Romance, Supernatural"
               img={kimi}
             />
+            </Link>
           </div>
+          
           <div className="slider-cover">
+          <Link to="/AnimeDetail?id=643">
             <SliderBox
               title="Death Note"
               genres="Mystery, Supernatural, Suspense"
               img={death}
             />
+            </Link>
           </div>
+          
           <div className="slider-cover">
+          <Link to="/AnimeDetail?id=427">
             <SliderBox
               title="Suzumiya Haruhi no Shoushitsu"
               genres="Comedy, Mystery, Romance, Sci-Fi, Supernatural"
               img={suzu}
             />
+            </Link>
           </div>
         </Slider>
       </div>

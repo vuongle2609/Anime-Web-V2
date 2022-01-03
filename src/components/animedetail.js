@@ -163,7 +163,7 @@ function AnimeDetail() {
                 <span>
                   {animeData.status === 2
                     ? "Unknown"
-                    : animeData.episode_duration + "Minutes"}
+                    : animeData.episode_duration + " Minutes"}
                 </span>
               </li>
               <li>
