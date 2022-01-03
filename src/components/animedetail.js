@@ -1,5 +1,4 @@
-import { useEffect, useState, useRef } from "react";
-import { useLocation } from "react-router-dom";
+import { useEffect, useState } from "react";
 import parse from "html-react-parser";
 import Fuckusers from "./fuckuser";
 import undef from "../img/banner/undef.jpg";
@@ -7,13 +6,16 @@ import mal from "../img/logo/mal.png";
 import spotify from "../img/logo/Spotify_App_Logo.svg";
 import anilist from "../img/logo/anilist.png";
 import "@vime/core/themes/default.css";
+import { useLocation } from "react-router-dom";
 import { Player, Audio, DefaultUi } from "@vime/react";
 
 function AnimeDetail() {
-  const location = useLocation();
-  const { id } = location.state;
+  let location = useLocation();
+  let query = new URLSearchParams(location.search);
+  const id = query.get("id");
   const [animeData, setAnimeData] = useState(false);
   const [openingData, setOpeningData] = useState(false);
+  let tags = [];
   let format, status, start_date, end_date, season;
 
   useEffect(() => {
@@ -29,6 +31,10 @@ function AnimeDetail() {
 
     return () => document.querySelector(".header").classList.remove("active");
   }, []);
+
+  const addTags = (newTag) => {
+    tags.push(newTag);
+  };
 
   const handleData = (data) => {
     let sdate = new Date(data.start_date).toLocaleDateString();
@@ -136,7 +142,7 @@ function AnimeDetail() {
         </div>
 
         <span className="description">
-          {animeData.descriptions.en === ""
+          {animeData.descriptions.en === null
             ? ""
             : parse(animeData.descriptions.en)}
         </span>
@@ -154,7 +160,11 @@ function AnimeDetail() {
               </li>
               <li>
                 <p>Episode duration</p>
-                <span>{animeData.episode_duration} Minutes</span>
+                <span>
+                  {animeData.status === 2
+                    ? "Unknown"
+                    : animeData.episode_duration + "Minutes"}
+                </span>
               </li>
               <li>
                 <p>Status</p>
@@ -198,6 +208,9 @@ function AnimeDetail() {
                 <h2 className="title-anime">Tags</h2>
                 <div>
                   {animeData.genres.map((tag, index) => {
+                    if (index < 3) {
+                      addTags(tag);
+                    }
                     return <span key={index}>{tag}</span>;
                   })}
                 </div>
@@ -224,36 +237,39 @@ function AnimeDetail() {
                       <li key={index}>
                         <div>
                           <div>
-                            <h2>{song.title}</h2>
-                            <span>{song.artist}</span>
-                          </div>
+                            <div>
+                              <h2>{song.title}</h2>
+                              <span>{song.artist}</span>
+                            </div>
 
-                          <Player
-                            theme="dark"
-                            style={{
-                              "--vm-player-theme": "#fbaa33",
-                              "--vm-control-scale": "1",
-                            }}
-                          >
-                            <Audio>
-                              <source
-                                data-src={song.preview_url}
-                                type="video/mp4"
+                            <a href={song.open_spotify_url}>
+                              Listen on spotify
+                              <img
+                                src={spotify}
+                                width="30px"
+                                height="30px"
+                                alt=""
                               />
-                            </Audio>
+                            </a>
+                          </div>
+                          <span>
+                            <Player
+                              theme="dark"
+                              style={{
+                                "--vm-player-theme": "#fbaa33",
+                                "--vm-control-scale": "1",
+                              }}
+                            >
+                              <Audio>
+                                <source
+                                  data-src={song.preview_url}
+                                  type="video/mp4"
+                                />
+                              </Audio>
 
-                            <DefaultUi />
-                          </Player>
-
-                          <a href={song.open_spotify_url}>
-                            Listen on spotify
-                            <img
-                              src={spotify}
-                              width="30px"
-                              height="30px"
-                              alt=""
-                            />
-                          </a>
+                              <DefaultUi />
+                            </Player>
+                          </span>
                         </div>
                       </li>
                     ))}
@@ -262,15 +278,6 @@ function AnimeDetail() {
               ) : (
                 false
               )}
-
-              {/* <div className="tags-anime">
-                <h2 className="title-anime">Recommendations</h2>
-                <div>
-                  {animeData.genres.map((tag, index) => {
-                    return <span key={index}>{tag}</span>;
-                  })}
-                </div>
-              </div> */}
             </div>
           </div>
         </div>

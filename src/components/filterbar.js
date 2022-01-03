@@ -289,6 +289,20 @@ function FilterBar(props) {
       document.querySelector("#list-season").classList.toggle("active");
       setBtnS(!btnS);
     };
+
+    document.querySelector('.search-input').focus()
+
+    const handleEnter = (e) => {
+      if (e.code === 'Enter') {
+        document.querySelector('.apply').click()
+      }
+    }
+
+    window.addEventListener('keydown',handleEnter)
+
+    return () => {
+      window.removeEventListener('keydown',handleEnter)
+    }
   }, [btnG, btnF, btnS]);
 
   return (
@@ -303,6 +317,7 @@ function FilterBar(props) {
           <box-icon name="search" color="#9e9ea8"></box-icon>
           <input
             type="text"
+            className="search-input"
             placeholder="Search your anime here"
             onChange={(e) => {props.titleHandle(e.target.value)}}
           />

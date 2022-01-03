@@ -6,7 +6,7 @@ import Fuckusers from "./fuckuser";
 function HomeComing() {
   const [animeData, setAnimeData] = useState();
   const animeApi = useRef()
-  let animeCount = 0
+  let abortController = new AbortController();
   
   useEffect(() => {
     const date = new Date();
@@ -36,9 +36,23 @@ function HomeComing() {
     let api = `https://api.aniapi.com/v1/anime?year=${year}&season=${season}&nsfw=true`;
     animeApi.current = api
 
-    fetch(api)
-      .then((response) => response.json())
-      .then((data) => setAnimeData(data));
+    const fetchAnime = async (api) => {
+      try {
+        let res = await fetch(api, {
+          signal: abortController.signal
+        })
+        let data = await res.json()
+        setAnimeData(data)
+      } catch {
+        return 0
+      }
+    }
+
+    fetchAnime(api)
+
+    return () => {
+      abortController.abort()
+    }
   }, []);
 
   return (
@@ -47,14 +61,13 @@ function HomeComing() {
 
       {animeData
         ? animeData.data.documents.map((anime, index) => {
-            if (animeCount < 6 && 
+            if (index < 6 && 
               anime.status === 2) {
               let status = anime.status;
               let season = anime.season_period;
               let genres = anime.genres;
               let description = anime.descriptions;
               let year = anime.season_year
-              animeCount++
 
               return (
                 <BoxAnimeList

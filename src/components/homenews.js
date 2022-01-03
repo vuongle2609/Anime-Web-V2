@@ -5,13 +5,13 @@ import Fuckusers from "./fuckuser";
 
 function HomeNews() {
   const [animeData, setAnimeData] = useState();
-  const animeApi = useRef()
-  let animeCount = 0
-
+  const [animeApi, setAnimeApi] = useState();
   useEffect(() => {
     const date = new Date();
     const year = date.getFullYear();
     let season;
+    let abortController = new AbortController();
+
     switch (date.getMonth()) {
       case 0:
       case 1:
@@ -34,43 +34,58 @@ function HomeNews() {
         season = 3;
     }
     let api = `https://api.aniapi.com/v1/anime?year=${year}&season=${season}&nsfw=true`;
-    animeApi.current = api
+    setAnimeApi(api);
 
-    fetch(api)
-      .then((response) => response.json())
-      .then((data) => setAnimeData(data));
+    const fetchAnime = async (api) => {
+      try {
+        let res = await fetch(api, {
+          signal: abortController.signal,
+        });
+        let data = await res.json();
+        setAnimeData(data);
+      } catch {
+        return 0
+      }
+    };
+
+    fetchAnime(api);
+
+    return () => {
+      abortController.abort();
+    };
   }, []);
 
   return (
     <div className="row home-news">
-      <NavCategory title="What's New" isD={true} api={animeApi.current} />
-      {animeData
-        ? animeData.data.documents.map((anime, index) => {
-            if (animeCount < 6) {
-              let status = anime.status;
-              let season = anime.season_period;
-              let genres = anime.genres;
-              let description = anime.descriptions;
-              let year = anime.season_year;
-              animeCount++
+      <NavCategory title="What's New" isD={true} api={animeApi} />
+      {animeData ? (
+        animeData.data.documents.map((anime, index) => {
+          if (index < 6) {
+            let status = anime.status;
+            let season = anime.season_period;
+            let genres = anime.genres;
+            let description = anime.descriptions;
+            let year = anime.season_year;
 
-              return (
-                <BoxAnimeList
-                  key={index}
-                  cover={anime.cover_image}
-                  title={anime.titles.en}
-                  status={status}
-                  genres={genres}
-                  season={season}
-                  year={year}
-                  description={description}
-                  width={"c-2"}
-                  id={anime.id}
-                />
-              );
-            }
-          })
-        : <Fuckusers firstSearch={false} isLoading={true}/>}
+            return (
+              <BoxAnimeList
+                key={index}
+                cover={anime.cover_image}
+                title={anime.titles.en}
+                status={status}
+                genres={genres}
+                season={season}
+                year={year}
+                description={description}
+                width={"c-2"}
+                id={anime.id}
+              />
+            );
+          }
+        })
+      ) : (
+        <Fuckusers firstSearch={false} isLoading={true} />
+      )}
     </div>
   );
 }
