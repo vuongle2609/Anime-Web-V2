@@ -1,18 +1,23 @@
-import { useEffect } from "react";
-import { Link } from "react-router-dom";
+import {
+  Link,
+  useLocation
+} from 'react-router-dom'
+
+function OldSchoolMenuLink ({ children, to }) {
+  const location = useLocation()
+  const match = location.pathname === to
+
+  return (
+    <div className={match ? 'box-nav active' : 'box-nav '}>
+      <Link to={to}>
+        {children}
+      </Link>
+    </div>
+  )
+}
 
 function Navigation() {
-  useEffect(() => {
-    const navItem = document.querySelectorAll('.nav-items')
-    for (let i = 0; i < 2; i++) {
-      navItem[i].onclick = (e) => {
-        i === 0 ? 
-        navItem[1].classList.remove('active') : 
-        navItem[0].classList.remove('active') 
-        e.target.classList.add('active')
-      }
-    }
-  }, []);
+  
 
   return (
     <>
@@ -28,8 +33,8 @@ function Navigation() {
             <span>Paff Wandering</span>
           </div>
           <div className="nav">
-            <Link to="/"><span className="active nav-items">Home</span></Link>
-            <Link to="/Search"><span className=" nav-items">Search</span></Link>
+            <OldSchoolMenuLink  to="/"><span className="active nav-items">Home</span></OldSchoolMenuLink >
+            <OldSchoolMenuLink  to="/Search"><span className=" nav-items">Search</span></OldSchoolMenuLink >
             <span>
               <div
                 style={{

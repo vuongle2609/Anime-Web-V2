@@ -20,6 +20,7 @@ function AnimeDetail() {
 
   useEffect(() => {
     document.querySelector(".header").classList.add("active");
+    document.querySelector(".box-nav").classList.remove("active");
 
     fetch(`https://api.aniapi.com/v1/anime/${id}`)
       .then((res) => res.json())

@@ -115,16 +115,20 @@ button {
     box-icon {
       margin-left: 10px;
     }
+
+    &:hover {
+      cursor: pointer;
+    }
   }
 
-  span.active {
-    background-color: #1f1d2b;
-    border-bottom: 3px solid $base-color;
-    color: $base-color;
-  }
-
-  span:hover {
-    cursor: pointer;
+  div.active {
+    a {
+      span {
+        background-color: #1f1d2b;
+        border-bottom: 3px solid $base-color;
+        color: $base-color;
+      }
+    }
   }
 }
 
