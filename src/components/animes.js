@@ -11,15 +11,18 @@ function AnimeBoxes({ display, apiFilter, firstSearch, setFirstSearch }) {
 
   useEffect(() => {
     setDataA("");
-    if (apiFilter === "") {
+    if (localStorage.searchdata){
+      animesHandle(JSON.parse(localStorage.searchdata))
+    } else if (apiFilter === "") {
       setDataA("");
     } else if (!animeData.current || prevApi !== apiFilter) {
       setIsLoading(true);
       fetch(apiFilter)
         .then((res) => res.json())
         .then((data) => {
-          animeData.current = data;
-          animesHandle(data);
+          animeData.current = data.data.documents;
+          localStorage.setItem('searchdata', JSON.stringify(data.data.documents));
+          animesHandle(data.data.documents);
         })
         .then((prevApi.current = apiFilter));
     } else if (prevApi === apiFilter) {
@@ -31,7 +34,7 @@ function AnimeBoxes({ display, apiFilter, firstSearch, setFirstSearch }) {
     setIsLoading(false);
     const animesObj = data;
 
-    const htmls = animesObj.data.documents.map((anime, index) => {
+    const htmls = animesObj.map((anime, index) => {
       let status = anime.status;
       let season = anime.season_period;
       let genres = anime.genres;

@@ -7,7 +7,8 @@ import Fuckusers from "./fuckuser";
 
 function MoreAnimes() {
   const location = useLocation();
-  const { api } = location.state;
+  let query = new URLSearchParams(location.search);
+  const api = query.get("api");
   const [animeData, setAnimeData] = useState();
   const [display, setDisplay] = useState(false);
 

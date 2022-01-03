@@ -43,6 +43,7 @@ function Search() {
       setapiFilter("");
     } else {
       const genresString = genres.join(",").split(" ").join("%20");
+      localStorage.removeItem("searchdata")
       setapiFilter(() => {
         return `https://api.aniapi.com/v1/anime?title=${title}${
           status ? `&status=${status}` : ""
