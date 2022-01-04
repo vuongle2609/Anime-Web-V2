@@ -59,7 +59,7 @@ function Search() {
 
   return (
     <>
-      <div className="body grid wide search fade-in-top">
+      <div className="body grid wide search">
         <div className="body-container row">
           <div className="left-container col c-3">
             <FilterBar

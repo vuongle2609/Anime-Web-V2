@@ -1,6 +1,7 @@
 import Navigation from "./components/mainNavBar";
 import Search from "./components/searchContainer";
 import Home from "./components/homeContainer";
+import AnimeWatch from "./components/animeWatch"
 import MoreAnimes from "./components/listAnimes";
 import AnimeDetail from "./components/animeDetail";
 import { Routes, Route } from "react-router-dom";
@@ -22,6 +23,7 @@ function App() {
           <Route path="/Search" element={<Search />} />
           <Route path="/AnimeDetail" element={<AnimeDetail />} />
           <Route path="/More" element={<MoreAnimes />} />
+          <Route path="/Watch" element={<AnimeWatch />} />
         </Routes>
     </>
   );

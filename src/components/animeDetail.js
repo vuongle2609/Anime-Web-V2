@@ -7,7 +7,7 @@ import mal from "../img/logo/mal.png";
 import spotify from "../img/logo/Spotify_App_Logo.svg";
 import anilist from "../img/logo/anilist.png";
 import "@vime/core/themes/default.css";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { Player, Audio, DefaultUi } from "@vime/react";
 
 function AnimeDetailInfo({
@@ -138,43 +138,42 @@ function AnimeDetailDetail({ animeData, addTags, openingData }) {
           false
         )}
 
-        {prequel ? (
+        {sequel || prequel ? (
           <>
-            <h2 className="title-anime">Prequel</h2>
+            <h2 className="title-anime">Sequel and Prequel</h2>
             <div className="row">
-              <BoxAnimeList
-                cover={prequel.cover_image}
-                title={prequel.titles.en}
-                status={prequel.status}
-                genres={prequel.genres}
-                season={prequel.season_period}
-                year={prequel.season_year}
-                description={prequel.description}
-                width={"c-2-4"}
-                id={prequel.id}
-                newtab={"_blank"}
-              />
-            </div>
-          </>
-        ) : (
-          false
-        )}
-        {sequel ? (
-          <>
-            <h2 className="title-anime">Sequel</h2>
-            <div className="row">
-              <BoxAnimeList
-                cover={sequel.cover_image}
-                title={sequel.titles.en}
-                status={sequel.status}
-                genres={sequel.genres}
-                season={sequel.season_period}
-                year={sequel.season_year}
-                description={sequel.description}
-                width={"c-2-4"}
-                id={sequel.id}
-                newtab={"_blank"}
-              />
+              {sequel ? (
+                <BoxAnimeList
+                  cover={sequel.cover_image}
+                  title={sequel.titles.en}
+                  status={sequel.status}
+                  genres={sequel.genres}
+                  season={sequel.season_period}
+                  year={sequel.season_year}
+                  description={sequel.description}
+                  width={"c-2-4"}
+                  id={sequel.id}
+                  newtab={"_blank"}
+                />
+              ) : (
+                false
+              )}
+              {prequel ? (
+                <BoxAnimeList
+                  cover={prequel.cover_image}
+                  title={prequel.titles.en}
+                  status={prequel.status}
+                  genres={prequel.genres}
+                  season={prequel.season_period}
+                  year={prequel.season_year}
+                  description={prequel.description}
+                  width={"c-2-4"}
+                  id={prequel.id}
+                  newtab={"_blank"}
+                />
+              ) : (
+                false
+              )}
             </div>
           </>
         ) : (
@@ -233,6 +232,48 @@ function AnimeDetailDetail({ animeData, addTags, openingData }) {
       </div>
     </div>
   );
+}
+
+function ButtonPlay ({id}) {
+  const [canPlaySub, setCanPlaySub] = useState(false)
+  const [canPlayDub, setCanPlayDub] = useState(false)
+
+  useEffect(() => {
+    const checkSub = async (idAnime) => {
+      try {
+        const res = await fetch(`https://api.aniapi.com/v1/episode?anime_id=${idAnime}&source=gogoanime_dub&locale=en`)
+        const data = await res.json()
+        if (data.status_code === 404) {
+          setCanPlaySub(false)
+        } else {
+          setCanPlaySub(true)
+        }
+      } catch {
+        setCanPlaySub(false)
+      }
+    }
+
+    const checkDub = async (idAnime) => {
+      try {
+        const res = await fetch(`https://api.aniapi.com/v1/episode?anime_id=${idAnime}&source=gogoanime&locale=en`)
+        const data = await res.json()
+        if (data.status_code === 404) {
+          setCanPlayDub(false)
+        } else {
+          setCanPlayDub(true)
+        }        
+      } catch {
+        setCanPlayDub(false)
+      }
+    }
+
+    checkSub(id)
+    checkDub(id)
+  }, [])
+
+  return canPlaySub || canPlayDub ?
+  <Link to={`/Watch?id=${id}&sub=${canPlaySub}&dub=${canPlayDub}`}><span className="">Watch now</span></Link> :
+  <span className="no-video">Watch now</span>
 }
 
 function AnimeDetail() {
@@ -361,7 +402,7 @@ function AnimeDetail() {
               <span>{animeData.titles.jp}</span>
             </div>
             <div>
-              <span>Watch now</span>
+              <ButtonPlay id={animeData.id}/>
               <span>
                 <box-icon color="#fff" name="list-plus"></box-icon>
                 Add to collection
