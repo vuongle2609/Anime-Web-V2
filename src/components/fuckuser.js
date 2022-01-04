@@ -8,17 +8,17 @@ function Fuckusers({ firstSearch, isLoading }) {
       <>
         <div className="nothing">
           <img src={Nhay} className="nothing" alt="" />
-          <span className="nothingT">Nhap cai gi di ban</span>
+          <span className="nothingT">Search something...</span>
         </div>
       </>
     );
   } else if (isLoading) {
     return (
       <>
-        <div className="nothingFilter"></div>
+        
         <div className="nothing load">
           <img src={Chay} className="nothing" alt="" />
-          <span className="nothingT">Dang tai</span>
+          <span className="nothingT">Loading</span>
         </div>
       </>
     );
@@ -27,7 +27,7 @@ function Fuckusers({ firstSearch, isLoading }) {
       <>
         <div className="nothing">
           <img src={Dam} className="nothing" alt="" />
-          <span className="nothingT">Hoac la khong tim thay hoac la ban chua nhap cai lon gi caa</span>
+          <span className="nothingT">Wtf</span>
         </div>
       </>
     );

@@ -37,7 +37,7 @@ function Navigation() {
             <span>Paff Wandering</span>
           </div>
           <div className="nav">
-            <OldSchoolMenuLink to="/"><span onClick={() => {
+            <OldSchoolMenuLink to="/Home"><span onClick={() => {
               localStorage.removeItem("searchdata")
             }} className="active nav-items">Home</span></OldSchoolMenuLink >
             <OldSchoolMenuLink to="/Search"><span className=" nav-items">Search</span></OldSchoolMenuLink >

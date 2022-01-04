@@ -13,7 +13,7 @@ function AnimeBoxes({ display, apiFilter, firstSearch, setFirstSearch }) {
     if (localStorage.searchdata) {
       animesHandle(JSON.parse(localStorage.searchdata));
     } else if (apiFilter === "") {
-      setDataA("");
+      setDataA("")
     } else if (!localStorage.searchdata || prevApi !== apiFilter) {
       setIsLoading(true);
       const fetchAnime = async (api) => {
@@ -27,7 +27,8 @@ function AnimeBoxes({ display, apiFilter, firstSearch, setFirstSearch }) {
           animesHandle(data.data.documents);
           prevApi.current = api;
         } catch {
-          console.log("k tim thay");
+          setFirstSearch(false)
+          setIsLoading(false)
         }
       };
 
