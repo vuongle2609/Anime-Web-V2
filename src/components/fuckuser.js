@@ -15,7 +15,6 @@ function Fuckusers({ firstSearch, isLoading }) {
   } else if (isLoading) {
     return (
       <>
-        
         <div className="nothing load">
           <img src={Chay} className="nothing" alt="" />
           <span className="nothingT">Loading</span>

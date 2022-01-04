@@ -28,6 +28,8 @@ function BoxAnimeDetail({
       break;
     case 3:
       box_status = "Cancelled";
+      break;
+    default:
   }
 
   if (description.en === "" || description.en === null) {
@@ -51,6 +53,8 @@ function BoxAnimeDetail({
       break;
     case 4:
       box_season = "";
+      break;
+    default:
   }
 
   box_genres = genres[0] + " ," + genres[1];

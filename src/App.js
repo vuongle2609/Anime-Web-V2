@@ -1,8 +1,8 @@
-import Navigation from "./components/navbar";
-import Search from "./components/searchcontainer";
-import Home from "./components/homecontainer";
-import MoreAnimes from "./components/moreanimes";
-import AnimeDetail from "./components/animedetail";
+import Navigation from "./components/mainNavBar";
+import Search from "./components/searchContainer";
+import Home from "./components/homeContainer";
+import MoreAnimes from "./components/listAnimes";
+import AnimeDetail from "./components/animeDetail";
 import { Routes, Route } from "react-router-dom";
 import "./responsive.css";
 import "./style.scss";

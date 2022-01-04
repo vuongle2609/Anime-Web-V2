@@ -1,4 +1,4 @@
-import HomeSlider from './sliderhome'
+import HomeSlider from './homeSlider'
 import HomeContent from './homeContent'
 
 function Home() {

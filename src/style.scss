@@ -2,6 +2,8 @@
 
 $base-color: #fbaa33;
 $gray-color: #9e9eb9;
+$dark-color: #1f1d2b;
+$semi-gray: #252836;
 
 html {
   font-size: 62.5%;
@@ -20,7 +22,7 @@ body {
 
   &::-webkit-scrollbar {
     width: 12px;
-    background-color: #252836;
+    background-color: $semi-gray;
   }
 
   &::-webkit-scrollbar-track:hover {
@@ -125,7 +127,7 @@ button {
   div.active {
     a {
       span {
-        background-color: #1f1d2b;
+        background-color: $dark-color;
         border-bottom: 3px solid $base-color;
         color: $base-color;
       }
@@ -134,7 +136,7 @@ button {
 }
 
 .header {
-  background-color: #252836;
+  background-color: $semi-gray;
   padding-top: 0;
   padding-bottom: 0;
   margin-top: 10px !important;
@@ -173,7 +175,7 @@ button {
 }
 
 .body {
-  background-color: #1f1d2b;
+  background-color: $dark-color;
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
 }
@@ -196,7 +198,7 @@ button {
 
 .left-bar {
   width: 100%;
-  background-color: #252836;
+  background-color: $semi-gray;
   height: 100%;
   padding: 20px 20px;
   border-radius: 10px;
@@ -345,7 +347,7 @@ button {
 
   ul::-webkit-scrollbar {
     width: 12px;
-    background-color: #252836;
+    background-color: $semi-gray;
   }
 
   ul::-webkit-scrollbar-track:hover {
@@ -582,7 +584,7 @@ button {
 
   &::-webkit-scrollbar {
     width: 12px;
-    background-color: #252836;
+    background-color: $semi-gray;
     border-radius: 10px;
   }
 
@@ -607,7 +609,7 @@ button {
     justify-content: space-between;
     height: fit-content;
     width: 70px;
-    background-color: #252836;
+    background-color: $semi-gray;
     padding: 5px;
     border-radius: 5px;
 
@@ -648,7 +650,7 @@ button {
   animation: opa 0.2s ease-in;
   position: relative;
   height: fit-content;
-  background-color: #252836;
+  background-color: $semi-gray;
   border-radius: 10px;
   padding: 0 4px 12px;
   margin: 20px 0;
@@ -805,7 +807,7 @@ button {
   div:last-child {
     display: flex;
     flex-direction: column;
-    background-color: #252836;
+    background-color: $semi-gray;
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;
     padding: 10px 10px;
@@ -1145,7 +1147,7 @@ $space-arrow: 35%;
 }
 
 .info-anime {
-  background-color: #252836;
+  background-color: $dark-color;
   list-style: none;
   margin: 0;
   padding: 20px;
@@ -1172,12 +1174,12 @@ $space-arrow: 35%;
 }
 
 .detail-anime {
-  background-color: #252836;
+  background-color: $dark-color;
   height: fit-content;
   padding: 20px;
   border-radius: 5px;
 
-  a {
+  .link-detail {
     display: inline-flex;
     align-items: center;
     font-size: 1.4rem;
@@ -1187,7 +1189,7 @@ $space-arrow: 35%;
     margin-right: 10px;
     margin-bottom: 10px;
     transition: all 0.1s ease-in;
-    background-color: rgba(0, 0, 0, 0.315);
+    background-color: $semi-gray;
 
     img {
       border-radius: 4px;
@@ -1195,8 +1197,8 @@ $space-arrow: 35%;
     }
 
     &:hover {
-      background-color: $base-color;
       color: #000;
+      background-color: $base-color;
     }
   }
 

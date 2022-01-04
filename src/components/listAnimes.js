@@ -1,8 +1,8 @@
 import { useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
-import BoxAnimeDetail from "./boxdetail";
-import BoxAnimeList from "./boxlist";
-import NavSort from "./navsort";
+import BoxAnimeDetail from "./animeBoxDetail";
+import BoxAnimeList from "./animeBoxList";
+import NavSort from "./sortBar";
 import Fuckusers from "./fuckuser";
 
 function MoreAnimes() {
@@ -40,12 +40,11 @@ function MoreAnimes() {
     if (!localStorage.getItem(`data${type}`)) {
       fetchAnime(api)
     } else {
-      console.log(JSON.parse(localStorage.getItem(`data${type}`)))
       setAnimeData(JSON.parse(localStorage.getItem(`data${type}`)))
     }
 
     return () => document.querySelector(".back-btn").classList.remove("active");
-  }, []);
+  }, [type, api]);
 
   return (
     <div className="body grid wide home">

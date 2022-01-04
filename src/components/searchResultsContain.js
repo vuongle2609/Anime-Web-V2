@@ -1,6 +1,6 @@
 import { useState } from "react";
-import NavSort from "./navsort";
-import AnimeBoxes from "./animes";
+import NavSort from "./sortBar";
+import AnimeBoxes from "./searchResults";
 
 function RightRender({ apiFilter, firstSearch, setFirstSearch }) {
   const [display, setDisplay] = useState(false);

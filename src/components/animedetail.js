@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import parse from "html-react-parser";
+import BoxAnimeList from "./animeBoxList";
 import Fuckusers from "./fuckuser";
 import undef from "../img/banner/undef.jpg";
 import mal from "../img/logo/mal.png";
@@ -8,6 +9,231 @@ import anilist from "../img/logo/anilist.png";
 import "@vime/core/themes/default.css";
 import { useLocation } from "react-router-dom";
 import { Player, Audio, DefaultUi } from "@vime/react";
+
+function AnimeDetailInfo({
+  animeData,
+  format,
+  status,
+  start_date,
+  end_date,
+  season,
+}) {
+  return (
+    <div className="col c-2">
+      <ul className="info-anime">
+        <li>
+          <p>Format</p>
+          <span>{format}</span>
+        </li>
+        <li>
+          <p>Episodes</p>
+          <span>{animeData.episodes_count}</span>
+        </li>
+        <li>
+          <p>Episode duration</p>
+          <span>
+            {animeData.status === 2
+              ? "Unknown"
+              : animeData.episode_duration + " Minutes"}
+          </span>
+        </li>
+        <li>
+          <p>Status</p>
+          <span>{status}</span>
+        </li>
+        <li>
+          <p>Start Date</p>
+          <span>{start_date}</span>
+        </li>
+        <li>
+          <p>End Date</p>
+          <span>{animeData.status === 2 ? "Unknown" : end_date}</span>
+        </li>
+        <li>
+          <p>Season</p>
+          <span>{season}</span>
+        </li>
+        <li>
+          <p>Year</p>
+          <span>{animeData.season_year}</span>
+        </li>
+        <li>
+          <p>Score</p>
+          <span>{animeData.score}%</span>
+        </li>
+      </ul>
+    </div>
+  );
+}
+
+function AnimeDetailDetail({ animeData, addTags, openingData }) {
+  const [prequel, setPrequel] = useState(false);
+  const [sequel, setSequel] = useState(false);
+
+  useEffect(() => {
+    const fetchOAnimeData = async (id, callback) => {
+      try {
+        const res = await fetch(`https://api.aniapi.com/v1/anime/${id}`);
+        const data = await res.json();
+        callback(data.data);
+      } catch {
+        throw new Error(`cant get animes`);
+      }
+    };
+
+    if (animeData.prequel !== undefined) {
+      fetchOAnimeData(animeData.prequel, setPrequel);
+    }
+    if (animeData.sequel !== undefined) {
+      fetchOAnimeData(animeData.sequel, setSequel);
+    }
+  }, []);
+
+  return (
+    <div className="col c-10">
+      <div className="detail-anime">
+        <a
+          className="link-detail"
+          href={`https://anilist.co/anime/${animeData.anilist_id}`}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <img src={anilist} alt="" height={"30px"} />
+          AniList
+        </a>
+
+        <a
+          className="link-detail"
+          href={`https://myanimelist.net/anime/${animeData.mal_id}`}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <img src={mal} alt="" height={"30px"} />
+          My Anime List
+        </a>
+
+        <div className="tags-anime">
+          <h2 className="title-anime">Tags</h2>
+          <div>
+            {animeData.genres.map((tag, index) => {
+              if (index < 3) {
+                addTags(tag);
+              }
+              return <span key={index}>{tag}</span>;
+            })}
+          </div>
+        </div>
+
+        {animeData.trailer_url ? (
+          <div className="trailer-anime">
+            <h2 className="title-anime">Trailer</h2>
+            <iframe
+              title="trailer"
+              src={animeData.trailer_url}
+              width="80%"
+              height="417px"
+            ></iframe>
+          </div>
+        ) : (
+          false
+        )}
+
+        {prequel ? (
+          <>
+            <h2 className="title-anime">Prequel</h2>
+            <div className="row">
+              <BoxAnimeList
+                cover={prequel.cover_image}
+                title={prequel.titles.en}
+                status={prequel.status}
+                genres={prequel.genres}
+                season={prequel.season_period}
+                year={prequel.season_year}
+                description={prequel.description}
+                width={"c-2-4"}
+                id={prequel.id}
+                newtab={"_blank"}
+              />
+            </div>
+          </>
+        ) : (
+          false
+        )}
+        {sequel ? (
+          <>
+            <h2 className="title-anime">Sequel</h2>
+            <div className="row">
+              <BoxAnimeList
+                cover={sequel.cover_image}
+                title={sequel.titles.en}
+                status={sequel.status}
+                genres={sequel.genres}
+                season={sequel.season_period}
+                year={sequel.season_year}
+                description={sequel.description}
+                width={"c-2-4"}
+                id={sequel.id}
+                newtab={"_blank"}
+              />
+            </div>
+          </>
+        ) : (
+          false
+        )}
+
+        {openingData ? (
+          <div className="songs-anime">
+            <h2 className="title-anime">Openings - Endings</h2>
+            <ul>
+              {openingData.map((song, index) => (
+                <li key={index}>
+                  <div>
+                    <div>
+                      <div>
+                        <h2>{song.title}</h2>
+                        <span>{song.artist}</span>
+                      </div>
+
+                      <a
+                        className="link-detail"
+                        href={song.open_spotify_url}
+                        rel="noreferrer"
+                        target="_blank"
+                      >
+                        Listen on spotify
+                        <img src={spotify} width="30px" height="30px" alt="" />
+                      </a>
+                    </div>
+                    <span>
+                      <Player
+                        theme="dark"
+                        style={{
+                          "--vm-player-theme": "#fbaa33",
+                          "--vm-control-scale": "1",
+                        }}
+                      >
+                        <Audio>
+                          <source
+                            data-src={song.preview_url}
+                            type="video/mp4"
+                          />
+                        </Audio>
+
+                        <DefaultUi />
+                      </Player>
+                    </span>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ) : (
+          false
+        )}
+      </div>
+    </div>
+  );
+}
 
 function AnimeDetail() {
   let location = useLocation();
@@ -34,7 +260,7 @@ function AnimeDetail() {
     return () => {
       document.querySelector(".header").classList.remove("active");
       document.querySelector(".back-btn").classList.remove("active");
-    }
+    };
   }, []);
 
   const addTags = (newTag) => {
@@ -59,6 +285,8 @@ function AnimeDetail() {
         break;
       case 3:
         status = "Cancelled";
+        break;
+      default:
     }
 
     switch (data.season_period) {
@@ -76,6 +304,8 @@ function AnimeDetail() {
         break;
       case 4:
         season = "";
+        break;
+      default:
     }
 
     switch (data.format) {
@@ -99,6 +329,8 @@ function AnimeDetail() {
         break;
       case 6:
         format = "Music";
+        break;
+      default:
     }
   };
   if (animeData) handleData(animeData);
@@ -153,138 +385,25 @@ function AnimeDetail() {
         </span>
 
         <div className="row">
-          <div className="col c-2">
-            <ul className="info-anime">
-              <li>
-                <p>Format</p>
-                <span>{format}</span>
-              </li>
-              <li>
-                <p>Episodes</p>
-                <span>{animeData.episodes_count}</span>
-              </li>
-              <li>
-                <p>Episode duration</p>
-                <span>
-                  {animeData.status === 2
-                    ? "Unknown"
-                    : animeData.episode_duration + " Minutes"}
-                </span>
-              </li>
-              <li>
-                <p>Status</p>
-                <span>{status}</span>
-              </li>
-              <li>
-                <p>Start Date</p>
-                <span>{start_date}</span>
-              </li>
-              <li>
-                <p>End Date</p>
-                <span>{animeData.status === 2 ? "Unknown" : end_date}</span>
-              </li>
-              <li>
-                <p>Season</p>
-                <span>{season}</span>
-              </li>
-              <li>
-                <p>Year</p>
-                <span>{animeData.season_year}</span>
-              </li>
-              <li>
-                <p>Score</p>
-                <span>{animeData.score}%</span>
-              </li>
-            </ul>
-          </div>
-          <div className="col c-10">
-            <div className="detail-anime">
-              <a href={`https://anilist.co/anime/${animeData.anilist_id}`}>
-                <img src={anilist} alt="" height={"30px"} />
-                AniList
-              </a>
+          <AnimeDetailInfo
+            animeData={animeData}
+            status={status}
+            format={format}
+            start_date={start_date}
+            end_date={end_date}
+            season={season}
+          />
 
-              <a href={`https://myanimelist.net/anime/${animeData.mal_id}`}>
-                <img src={mal} alt="" height={"30px"} />
-                My Anime List
-              </a>
-
-              <div className="tags-anime">
-                <h2 className="title-anime">Tags</h2>
-                <div>
-                  {animeData.genres.map((tag, index) => {
-                    if (index < 3) {
-                      addTags(tag);
-                    }
-                    return <span key={index}>{tag}</span>;
-                  })}
-                </div>
-              </div>
-
-              {animeData.trailer_url ? (
-                <div className="trailer-anime">
-                  <h2 className="title-anime">Trailer</h2>
-                  <iframe
-                    src={animeData.trailer_url}
-                    width="80%"
-                    height="417px"
-                  ></iframe>
-                </div>
-              ) : (
-                false
-              )}
-
-              {openingData ? (
-                <div className="songs-anime">
-                  <h2 className="title-anime">Openings - Endings</h2>
-                  <ul>
-                    {openingData.map((song, index) => (
-                      <li key={index}>
-                        <div>
-                          <div>
-                            <div>
-                              <h2>{song.title}</h2>
-                              <span>{song.artist}</span>
-                            </div>
-
-                            <a href={song.open_spotify_url} target="_blank">
-                              Listen on spotify
-                              <img
-                                src={spotify}
-                                width="30px"
-                                height="30px"
-                                alt=""
-                              />
-                            </a>
-                          </div>
-                          <span>
-                            <Player
-                              theme="dark"
-                              style={{
-                                "--vm-player-theme": "#fbaa33",
-                                "--vm-control-scale": "1",
-                              }}
-                            >
-                              <Audio>
-                                <source
-                                  data-src={song.preview_url}
-                                  type="video/mp4"
-                                />
-                              </Audio>
-
-                              <DefaultUi />
-                            </Player>
-                          </span>
-                        </div>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              ) : (
-                false
-              )}
-            </div>
-          </div>
+          <AnimeDetailDetail
+            animeData={animeData}
+            status={status}
+            format={format}
+            start_date={start_date}
+            end_date={end_date}
+            season={season}
+            openingData={openingData}
+            addTags={addTags}
+          />
         </div>
       </div>
     </div>

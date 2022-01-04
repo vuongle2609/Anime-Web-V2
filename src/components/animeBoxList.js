@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-function BoxAnimeList({ cover, title, status, season, year, id, width }) {
+function BoxAnimeList({ cover, title, status, season, year, id, width, newtab }) {
   let box_status;
   let box_season;
 
@@ -16,6 +16,8 @@ function BoxAnimeList({ cover, title, status, season, year, id, width }) {
       break;
     case 3:
       box_status = "Cancelled";
+      break;
+    default:
   }
 
   switch (season) {
@@ -33,10 +35,12 @@ function BoxAnimeList({ cover, title, status, season, year, id, width }) {
       break;
     case 4:
       box_season = "";
+      break;
+    default:
   }
   return (
     <div className={`col ${width}`}>
-      <Link to={`/AnimeDetail?id=${id}`}>
+      <Link to={`/AnimeDetail?id=${id}`} target={newtab ? newtab : null} rel="noopener noreferrer">
         <div className="box-L-container">
           <div style={{ backgroundImage: `url('${cover}')` }}></div>
           <div>

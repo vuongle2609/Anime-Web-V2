@@ -1,5 +1,4 @@
-import SliderBox from "./sliderItem";
-import NavCategory from './navcategory'
+import NavCategory from './listAnimesNav'
 import Slider from "react-slick";
 import gate from "../img/banner/gate.jpg";
 import metal from "../img/banner/metal.jpg";
@@ -7,6 +6,27 @@ import kimi from "../img/banner/kimi.png";
 import death from "../img/banner/death.png";
 import suzu from "../img/banner/suzu.png";
 import { Link } from 'react-router-dom'
+
+function SliderBox(props) {
+  return (
+    <div
+      style={{
+        backgroundImage: `url('${props.img}')`,
+      }}
+      className="slider-items"
+    >
+      <div>
+        <h2>
+          {props.title}
+        </h2>
+        <span>
+          Genre:
+          <span>{props.genres}</span>
+        </span>
+      </div>
+    </div>
+  );
+}
 
 function NextArrow(props) {
   const { className, style, onClick } = props;

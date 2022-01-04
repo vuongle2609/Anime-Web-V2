@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import NavCategory from "./navcategory";
-import BoxAnimeList from "./boxlist";
+import NavCategory from "./listAnimesNav";
+import BoxAnimeList from "./animeBoxList";
 import Fuckusers from "./fuckuser";
 
 export default function HomeContent(props) {
@@ -28,6 +28,8 @@ export default function HomeContent(props) {
     case 10:
     case 11:
       season = props.type === '0' ? 3 : 0;
+      break;
+    default:
   }
 
   useEffect(() => {
@@ -51,7 +53,7 @@ export default function HomeContent(props) {
     return () => {
       abortController.abort();
     };
-  }, []);
+  }, [season, year]);
 
   return (
     <div className="row">
@@ -80,6 +82,7 @@ export default function HomeContent(props) {
               />
             );
           }
+          return null
         })
       ) : (
         <Fuckusers firstSearch={false} isLoading={true} />

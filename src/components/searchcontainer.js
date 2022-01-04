@@ -1,6 +1,6 @@
 import { useState } from "react";
-import FilterBar from "./filterbar";
-import RightRender from "./rightrender";
+import FilterBar from "./searchFilterBar";
+import RightRender from "./searchResultsContain";
 
 function Search() {
   const [season, setSeason] = useState();

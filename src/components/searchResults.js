@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
-import BoxAnimeDetail from "./boxdetail";
-import BoxAnimeList from "./boxlist";
+import BoxAnimeDetail from "./animeBoxDetail";
+import BoxAnimeList from "./animeBoxList";
 import Fuckusers from "./fuckuser";
 
 function AnimeBoxes({ display, apiFilter, firstSearch, setFirstSearch }) {
