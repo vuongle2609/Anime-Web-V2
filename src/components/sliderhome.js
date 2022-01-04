@@ -66,7 +66,7 @@ function HomeSlider() {
   };
 
   return (
-    <div className="row">
+    <div className="row home-slider">
       <NavCategory title="Featured" isD={false} />
       <div className="col c-12 slider">
         <Slider {...settings}>

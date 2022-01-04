@@ -80,6 +80,7 @@ button {
     height: 36px;
     background-size: contain;
     border-radius: 50%;
+    animation: scale 0.2s ease-in-out;
   }
 
   span {
@@ -877,6 +878,16 @@ button {
   }
 }
 
+@keyframes scale {
+  0% {
+    transform: scale(0%)
+  }
+
+  100% {
+    transform: scale(100%)
+  }
+}
+
 .nav-category {
   width: 100%;
   display: flex;
@@ -1005,8 +1016,8 @@ $space-arrow: 35%;
   top: 107%;
 }
 
-.home-news {
-  margin-top: 60px;
+.home-slider {
+  margin-bottom: 60px;
 }
 
 .box-home {
@@ -1263,5 +1274,19 @@ $space-arrow: 35%;
         }
       }
     }
+  }
+}
+
+.back-btn {
+  display: none;
+  align-items: center;
+  justify-content: flex-start;
+  
+  &.active {
+    display: inline-flex;
+  }
+
+  &:hover {
+    cursor: pointer;
   }
 }

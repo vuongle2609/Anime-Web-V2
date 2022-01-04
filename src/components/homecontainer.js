@@ -1,15 +1,18 @@
 import HomeSlider from './sliderhome'
-import HomeNews from './homenews'
-import HomeComing from './homecoming'
+import HomeContent from './homeContent'
 
 function Home() {
+  for (let i = 0; i < 2; i++) {
+    localStorage.removeItem(`data${i}`)
+  }
+
   return (
-    <div className="grid wide body home fade-in-top">
+    <div className="grid wide body home">
       <HomeSlider />
       
-      <HomeNews />
+      <HomeContent type="0" text="What's New"/>
 
-      <HomeComing />
+      <HomeContent type="1" text="Coming Soon"/>
     </div>
   );
 }

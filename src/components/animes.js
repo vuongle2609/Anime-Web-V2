@@ -6,27 +6,34 @@ import Fuckusers from "./fuckuser";
 function AnimeBoxes({ display, apiFilter, firstSearch, setFirstSearch }) {
   const [dataA, setDataA] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const animeData = useRef(false);
   const prevApi = useRef("");
 
   useEffect(() => {
     setDataA("");
-    if (localStorage.searchdata){
-      animesHandle(JSON.parse(localStorage.searchdata))
+    if (localStorage.searchdata) {
+      animesHandle(JSON.parse(localStorage.searchdata));
     } else if (apiFilter === "") {
       setDataA("");
-    } else if (!animeData.current || prevApi !== apiFilter) {
+    } else if (!localStorage.searchdata || prevApi !== apiFilter) {
       setIsLoading(true);
-      fetch(apiFilter)
-        .then((res) => res.json())
-        .then((data) => {
-          animeData.current = data.data.documents;
-          localStorage.setItem('searchdata', JSON.stringify(data.data.documents));
+      const fetchAnime = async (api) => {
+        try {
+          const response = await fetch(api);
+          const data = await response.json();
+          localStorage.setItem(
+            "searchdata",
+            JSON.stringify(data.data.documents)
+          );
           animesHandle(data.data.documents);
-        })
-        .then((prevApi.current = apiFilter));
+          prevApi.current = api;
+        } catch {
+          console.log("k tim thay");
+        }
+      };
+
+      fetchAnime(apiFilter);
     } else if (prevApi === apiFilter) {
-      animesHandle(animeData.current);
+      animesHandle(localStorage.searchdata);
     }
   }, [display, apiFilter]);
 
@@ -39,7 +46,7 @@ function AnimeBoxes({ display, apiFilter, firstSearch, setFirstSearch }) {
       let season = anime.season_period;
       let genres = anime.genres;
       let description = anime.descriptions;
-      let year = anime.season_year
+      let year = anime.season_year;
 
       return display ? (
         <BoxAnimeDetail

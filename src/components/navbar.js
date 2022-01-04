@@ -1,6 +1,7 @@
 import {
   Link,
-  useLocation
+  useLocation,
+  useNavigate
 } from 'react-router-dom'
 
 function OldSchoolMenuLink ({ children, to }) {
@@ -17,13 +18,16 @@ function OldSchoolMenuLink ({ children, to }) {
 }
 
 function Navigation() {
-  
+  const navigate = useNavigate()
 
   return (
     <>
       <div className=" header grid wide">
         <div className="popular">
           <div className="logo">
+          <div className="back-btn" onClick={() => navigate(-1)}>
+            <box-icon color="#fff" name='arrow-back'></box-icon>
+          </div>
             <div
               className="logo-img"
               style={{

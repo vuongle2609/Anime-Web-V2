@@ -4,7 +4,7 @@ function NavCategory(props) {
   return (
     <div className="nav-category">
       <h2>{props.title}</h2>
-      <Link to={`/More?api=${props.api}`}>
+      <Link to={`/More?year=${props.year}&season=${props.season}&type=${props.type}`}>
         <span>
           {!props.isD || (
             <>

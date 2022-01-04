@@ -1,40 +1,38 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import NavCategory from "./navcategory";
 import BoxAnimeList from "./boxlist";
 import Fuckusers from "./fuckuser";
 
-function HomeNews() {
+export default function HomeContent(props) {
   const [animeData, setAnimeData] = useState();
-  const [animeApi, setAnimeApi] = useState();
-  useEffect(() => {
-    const date = new Date();
-    const year = date.getFullYear();
-    let season;
-    let abortController = new AbortController();
+  const date = new Date();
+  const year = date.getFullYear();
+  let season;
+  switch (date.getMonth()) {
+    case 0:
+    case 1:
+    case 2:
+      season = props.type === '0' ? 0 : 1 ;
+      break;
+    case 3:
+    case 4:
+    case 5:
+      season = props.type === '0' ? 1 : 2;
+      break;
+    case 6:
+    case 7:
+    case 8:
+      season = props.type === '0' ? 2 : 3;
+      break;
+    case 9:
+    case 10:
+    case 11:
+      season = props.type === '0' ? 3 : 0;
+  }
 
-    switch (date.getMonth()) {
-      case 0:
-      case 1:
-      case 2:
-        season = 0;
-        break;
-      case 3:
-      case 4:
-      case 5:
-        season = 1;
-        break;
-      case 6:
-      case 7:
-      case 8:
-        season = 2;
-        break;
-      case 9:
-      case 10:
-      case 11:
-        season = 3;
-    }
+  useEffect(() => {
+    let abortController = new AbortController();
     let api = `https://api.aniapi.com/v1/anime?year=${year}&season=${season}&nsfw=true`;
-    setAnimeApi(api);
 
     const fetchAnime = async (api) => {
       try {
@@ -56,8 +54,8 @@ function HomeNews() {
   }, []);
 
   return (
-    <div className="row home-news">
-      <NavCategory title="What's New" isD={true} api={animeApi} />
+    <div className="row">
+      <NavCategory title={props.text} isD={true} year={year} season={season} type={props.type}/>
       {animeData ? (
         animeData.data.documents.map((anime, index) => {
           if (index < 6) {
@@ -89,5 +87,3 @@ function HomeNews() {
     </div>
   );
 }
-
-export default HomeNews;

@@ -9,6 +9,9 @@ function Search() {
   const [title, setTitle] = useState("");
   const [apiFilter, setapiFilter] = useState("");
   const [firstSearch, setFirstSearch] = useState(true);
+  for (let i = 0; i < 2; i++) {
+    localStorage.removeItem(`data${i}`)
+  }
 
   const seasonHandle = (value) => {
     setSeason(value);

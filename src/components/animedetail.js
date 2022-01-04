@@ -21,6 +21,7 @@ function AnimeDetail() {
   useEffect(() => {
     document.querySelector(".header").classList.add("active");
     document.querySelector(".box-nav").classList.remove("active");
+    document.querySelector(".back-btn").classList.add("active");
 
     fetch(`https://api.aniapi.com/v1/anime/${id}`)
       .then((res) => res.json())
@@ -30,7 +31,10 @@ function AnimeDetail() {
       .then((res) => res.json())
       .then((data) => setOpeningData(data.data.documents));
 
-    return () => document.querySelector(".header").classList.remove("active");
+    return () => {
+      document.querySelector(".header").classList.remove("active");
+      document.querySelector(".back-btn").classList.remove("active");
+    }
   }, []);
 
   const addTags = (newTag) => {
@@ -243,7 +247,7 @@ function AnimeDetail() {
                               <span>{song.artist}</span>
                             </div>
 
-                            <a href={song.open_spotify_url}>
+                            <a href={song.open_spotify_url} target="_blank">
                               Listen on spotify
                               <img
                                 src={spotify}

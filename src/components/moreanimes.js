@@ -8,7 +8,10 @@ import Fuckusers from "./fuckuser";
 function MoreAnimes() {
   const location = useLocation();
   let query = new URLSearchParams(location.search);
-  const api = query.get("api");
+  const season = query.get("season")
+  const year = query.get("year")
+  const type = query.get("type")
+  const api = `https://api.aniapi.com/v1/anime?year=${year}&season=${season}&nsfw=true`
   const [animeData, setAnimeData] = useState();
   const [display, setDisplay] = useState(false);
 
@@ -21,9 +24,27 @@ function MoreAnimes() {
   };
 
   useEffect(() => {
-    fetch(api)
-      .then((response) => response.json())
-      .then((data) => setAnimeData(data));
+    document.querySelector(".back-btn").classList.add("active");
+
+    const fetchAnime = async (apiAnime) => {
+      try {
+        const res = await fetch(apiAnime)
+        const data = await res.json()
+        setAnimeData(data)
+        localStorage.setItem(`data${type}`, JSON.stringify(data))
+      } catch {
+        throw new Error("Fetch failed")
+      }
+    }
+
+    if (!localStorage.getItem(`data${type}`)) {
+      fetchAnime(api)
+    } else {
+      console.log(JSON.parse(localStorage.getItem(`data${type}`)))
+      setAnimeData(JSON.parse(localStorage.getItem(`data${type}`)))
+    }
+
+    return () => document.querySelector(".back-btn").classList.remove("active");
   }, []);
 
   return (
