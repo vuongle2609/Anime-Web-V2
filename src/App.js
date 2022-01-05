@@ -16,7 +16,6 @@ function App() {
   return (
     <>
       <Navigation />
-
         <Routes>
           <Route index path="/" element={<Home />} />
           <Route index path="/Home" element={<Home />} />

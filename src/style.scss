@@ -821,6 +821,7 @@ button {
         font-size: 1.1rem;
         color: $gray-color;
       }
+
     }
 
     p:first-child {
@@ -1129,6 +1130,9 @@ $space-arrow: 35%;
             filter: brightness(90%);
           }
 
+          &.collected {
+            background-color: #ff7675;
+          }
         }
 
         span:first-child {
@@ -1348,6 +1352,5 @@ $space-arrow: 35%;
 
 vm-player {
   --vm-player-theme: #fbaa33;
-  --vm-loading-screen-dot-color: transparent;
+  // --vm-loading-screen-dot-color: transparent;
 }
-

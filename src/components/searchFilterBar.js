@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom"
 
 const genres = [
   "Action",
@@ -310,8 +311,12 @@ function FilterBar(props) {
       <div className="left-bar">
         <div className="category">
           <span className="active">Filter</span>
-          <span className="">Collection</span>
-          <span className="">History</span>
+          <Link to="/More?typeload=collection">
+            <span className="">Collection</span>
+          </Link>
+          <Link to="/More?typeload=history">
+            <span className="">History</span>
+          </Link>
         </div>
         <div className="search-box">
           <box-icon name="search" color="#9e9ea8"></box-icon>

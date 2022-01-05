@@ -4,7 +4,6 @@ import {
   Video,
   DefaultUi,
   DefaultControls,
-  Ui
 } from "@vime/react";
 import "@vime/core/themes/default.css";
 import corn from "../img/popcorn.gif";
@@ -14,8 +13,8 @@ function AnimeWatch() {
   const location = useLocation();
   let query = new URLSearchParams(location.search);
   const id = query.get("id");
-  const sub = (query.get("sub") === 'true')
-  const dub = (query.get("dub") === 'true')
+  const sub = query.get("sub") === "true";
+  const dub = query.get("dub") === "true";
   const [subdata, setSubdata] = useState(false);
   const [dubdata, setDubdata] = useState(false);
   const [animedata, setAnimedata] = useState(false);
@@ -71,6 +70,14 @@ function AnimeWatch() {
       getDub(id);
     }
 
+    setTimeout(() => {
+      if (sub) {
+        document.querySelector(".ep-1-sub").click();
+      } else {
+        document.querySelector(".ep-1-dub").click();
+      }
+    }, 2000);
+
     return () => {
       document.querySelector(".back-btn").classList.remove("active");
     };
@@ -81,7 +88,8 @@ function AnimeWatch() {
       <div className="row">
         <div className="col c-12 anime-watch">
           <h1>
-            {animedata ? animedata.titles.en : false} - {!choose ? 'Choose your episode' : 'Episode ' + currentEp}
+            {animedata ? animedata.titles.en : false} -{" "}
+            {!choose ? "Choose your episode" : "Episode " + currentEp}
           </h1>
           <div className="anime-video">
             <Player>
@@ -105,12 +113,12 @@ function AnimeWatch() {
                       setVideoSrc(ep.video);
                       setCurrentEp(ep.number);
                       setCurrentType("sub");
-                      setChoose(true)
+                      setChoose(true);
                     }}
                     className={
                       ep.number === currentEp && currentType === "sub"
-                        ? "active"
-                        : ""
+                        ? `ep-${ep.number}-sub active`
+                        : `ep-${ep.number}-sub `
                     }
                   >
                     ep {ep.number}
@@ -132,12 +140,12 @@ function AnimeWatch() {
                       setVideoSrc(ep.video);
                       setCurrentEp(ep.number);
                       setCurrentType("dub");
-                      setChoose(true)
+                      setChoose(true);
                     }}
                     className={
                       ep.number === currentEp && currentType === "dub"
-                        ? "active"
-                        : ""
+                        ? `ep-${ep.number}-dub active`
+                        : `ep-${ep.number}-dub `
                     }
                   >
                     ep {ep.number}

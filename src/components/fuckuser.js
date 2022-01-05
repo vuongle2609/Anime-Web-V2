@@ -2,7 +2,7 @@ import Dam from "../img/dam.gif";
 import Chay from "../img/chay.gif";
 import Nhay from "../img/nhay.gif";
 
-function Fuckusers({ firstSearch, isLoading }) {
+function Fuckusers({ firstSearch, isLoading, text }) {
   if (firstSearch) {
     return (
       <>
@@ -26,7 +26,7 @@ function Fuckusers({ firstSearch, isLoading }) {
       <>
         <div className="nothing">
           <img src={Dam} className="nothing" alt="" />
-          <span className="nothingT">Wtf</span>
+          <span className="nothingT">{text ? text : 'wtf'}</span>
         </div>
       </>
     );

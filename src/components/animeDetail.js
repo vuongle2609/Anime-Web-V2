@@ -234,44 +234,163 @@ function AnimeDetailDetail({ animeData, addTags, openingData }) {
   );
 }
 
-function ButtonPlay ({id}) {
-  const [canPlaySub, setCanPlaySub] = useState(false)
-  const [canPlayDub, setCanPlayDub] = useState(false)
+function ButtonPlay(props) {
+  const [canPlaySub, setCanPlaySub] = useState(false);
+  const [canPlayDub, setCanPlayDub] = useState(false);
 
   useEffect(() => {
     const checkSub = async (idAnime) => {
       try {
-        const res = await fetch(`https://api.aniapi.com/v1/episode?anime_id=${idAnime}&source=gogoanime&locale=en`)
-        const data = await res.json()
+        const res = await fetch(
+          `https://api.aniapi.com/v1/episode?anime_id=${idAnime}&source=gogoanime&locale=en`
+        );
+        const data = await res.json();
         if (data.status_code === 404) {
-          setCanPlaySub(false)
+          setCanPlaySub(false);
         } else {
-          setCanPlaySub(true)
+          setCanPlaySub(true);
         }
-      } catch {
-      }
-    }
+      } catch {}
+    };
 
     const checkDub = async (idAnime) => {
       try {
-        const res = await fetch(`https://api.aniapi.com/v1/episode?anime_id=${idAnime}&source=gogoanime_dub&locale=en`)
-        const data = await res.json()
+        const res = await fetch(
+          `https://api.aniapi.com/v1/episode?anime_id=${idAnime}&source=gogoanime_dub&locale=en`
+        );
+        const data = await res.json();
         if (data.status_code === 404) {
-          setCanPlayDub(false)
+          setCanPlayDub(false);
         } else {
-          setCanPlayDub(true)
-        }        
-      } catch {
+          setCanPlayDub(true);
+        }
+      } catch {}
+    };
+
+    checkSub(props.id);
+    checkDub(props.id);
+  }, []);
+
+  const handleHistory = () => {
+    if (!localStorage.getItem("history")) {
+      const a = [
+        {
+          id: props.id,
+          titles: props.title,
+          status: props.status,
+          season_period: props.season,
+          cover_image: props.cover,
+          season_year: props.year,
+          genres: props.genres,
+          descriptions: props.description,
+        },
+      ];
+      localStorage.setItem("history", JSON.stringify(a));
+    } else {
+      const b = JSON.parse(localStorage.getItem("history"));
+
+      const c = b.filter((anime) => {
+        if (anime.id !== props.id) {
+          return anime;
+        }
+      });
+
+      c.unshift({
+        id: props.id,
+        titles: props.title,
+        status: props.status,
+        season_period: props.season,
+        cover_image: props.cover,
+        season_year: props.year,
+        genres: props.genres,
+        descriptions: props.description,
+      });
+      localStorage.setItem("history", JSON.stringify(c));
+    }
+  };
+
+  return canPlaySub || canPlayDub ? (
+    <Link
+      to={`/Watch?id=${props.id}&sub=${canPlaySub}&dub=${canPlayDub}`}
+      onClick={handleHistory}
+    >
+      <span className="">Watch now</span>
+    </Link>
+  ) : (
+    <span className="no-video">Watch now</span>
+  );
+}
+
+function ButtonCollection(props) {
+  const [isCollected, setIsCollected] = useState(false);
+
+  useEffect(() => {
+    const b = JSON.parse(localStorage.getItem("collection"));
+    b.filter((anime) => {
+      if (anime.id === props.id) {
+        setIsCollected(true);
+      }
+    });
+  }, []);
+
+  const handleCollect = () => {
+    if (!localStorage.getItem("collection")) {
+      const a = [
+        {
+          id: props.id,
+          titles: props.title,
+          status: props.status,
+          season_period: props.season,
+          cover_image: props.cover,
+          season_year: props.year,
+          genres: props.genres,
+          descriptions: props.description,
+        },
+      ];
+      localStorage.setItem("collection", JSON.stringify(a));
+      setIsCollected(true);
+    } else {
+      const b = JSON.parse(localStorage.getItem("collection"));
+
+      const c = b.filter((anime) => {
+        if (anime.id !== props.id) {
+          return anime;
+        }
+      });
+
+      let a = !(b.length === c.length);
+
+      if (a) {
+        localStorage.setItem("collection", JSON.stringify(c));
+        setIsCollected(false);
+      } else {
+        b.unshift({
+          id: props.id,
+          titles: props.title,
+          status: props.status,
+          season_period: props.season,
+          cover_image: props.cover,
+          season_year: props.year,
+          genres: props.genres,
+          descriptions: props.description,
+        });
+        localStorage.setItem("collection", JSON.stringify(b));
+        setIsCollected(true);
       }
     }
+  };
 
-    checkSub(id)
-    checkDub(id)
-  }, [])
-
-  return canPlaySub || canPlayDub ?
-  <Link to={`/Watch?id=${id}&sub=${canPlaySub}&dub=${canPlayDub}`}><span className="">Watch now</span></Link> :
-  <span className="no-video">Watch now</span>
+  return isCollected ? (
+    <span onClick={handleCollect} className="collected">
+      <box-icon color="#fff" name='list-minus'></box-icon>
+      Remove
+    </span>
+  ) : (
+    <span onClick={handleCollect} className="">
+      <box-icon color="#fff" name="list-plus"></box-icon>
+      Add to collection
+    </span>
+  );
 }
 
 function AnimeDetail() {
@@ -400,11 +519,26 @@ function AnimeDetail() {
               <span>{animeData.titles.jp}</span>
             </div>
             <div>
-              <ButtonPlay id={animeData.id}/>
-              <span>
-                <box-icon color="#fff" name="list-plus"></box-icon>
-                Add to collection
-              </span>
+              <ButtonPlay
+                id={animeData.id}
+                title={animeData.titles}
+                status={animeData.status}
+                season={animeData.season_period}
+                cover={animeData.cover_image}
+                year={animeData.season_year}
+                genres={animeData.genres}
+                description={animeData.descriptions}
+              />
+              <ButtonCollection
+                id={animeData.id}
+                title={animeData.titles}
+                status={animeData.status}
+                season={animeData.season_period}
+                cover={animeData.cover_image}
+                year={animeData.season_year}
+                genres={animeData.genres}
+                description={animeData.descriptions}
+              />
               <span>
                 <box-icon color="#fff" name="play"></box-icon>
                 Continue Watch
