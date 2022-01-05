@@ -326,11 +326,13 @@ function ButtonCollection(props) {
 
   useEffect(() => {
     const b = JSON.parse(localStorage.getItem("collection"));
-    b.filter((anime) => {
-      if (anime.id === props.id) {
-        setIsCollected(true);
-      }
-    });
+    if (b) {
+      b.filter((anime) => {
+        if (anime.id === props.id) {
+          setIsCollected(true);
+        }
+      });
+    }
   }, []);
 
   const handleCollect = () => {
