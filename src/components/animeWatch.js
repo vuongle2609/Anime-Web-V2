@@ -4,19 +4,18 @@ import {
   Video,
   DefaultUi,
   DefaultControls,
-  Ui,
-  LoadingScreen
+  Ui
 } from "@vime/react";
 import "@vime/core/themes/default.css";
-import chay from "../img/chay.gif";
+import corn from "../img/popcorn.gif";
 import { useLocation } from "react-router-dom";
 
 function AnimeWatch() {
   const location = useLocation();
   let query = new URLSearchParams(location.search);
   const id = query.get("id");
-  const sub = query.get("sub");
-  const dub = query.get("dub");
+  const sub = (query.get("sub") === 'true')
+  const dub = (query.get("dub") === 'true')
   const [subdata, setSubdata] = useState(false);
   const [dubdata, setDubdata] = useState(false);
   const [animedata, setAnimedata] = useState(false);
@@ -26,6 +25,8 @@ function AnimeWatch() {
   const [choose, setChoose] = useState(false);
 
   useEffect(() => {
+    document.querySelector(".back-btn").classList.add("active");
+
     const getSub = async (idAnime) => {
       try {
         const res = await fetch(
@@ -64,15 +65,15 @@ function AnimeWatch() {
 
     if (sub) {
       getSub(id);
-      setCurrentType("sub");
     }
 
     if (dub) {
       getDub(id);
-      if (!currentType) {
-        setCurrentType("dub");
-      }
     }
+
+    return () => {
+      document.querySelector(".back-btn").classList.remove("active");
+    };
   }, []);
 
   return (
@@ -84,16 +85,13 @@ function AnimeWatch() {
           </h1>
           <div className="anime-video">
             <Player>
-              <Video crossOrigin="" poster={chay}>
+              <Video crossOrigin="" poster={corn}>
                 <source data-src={videoSrc} type="video/mp4" />
               </Video>
 
               <DefaultUi noControls>
                 <DefaultControls hideOnMouseLeave activeDuration={2000} />
               </DefaultUi>
-              <Ui>
-              
-              </Ui>
             </Player>
           </div>
           {subdata ? (

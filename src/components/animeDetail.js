@@ -241,7 +241,7 @@ function ButtonPlay ({id}) {
   useEffect(() => {
     const checkSub = async (idAnime) => {
       try {
-        const res = await fetch(`https://api.aniapi.com/v1/episode?anime_id=${idAnime}&source=gogoanime_dub&locale=en`)
+        const res = await fetch(`https://api.aniapi.com/v1/episode?anime_id=${idAnime}&source=gogoanime&locale=en`)
         const data = await res.json()
         if (data.status_code === 404) {
           setCanPlaySub(false)
@@ -249,13 +249,12 @@ function ButtonPlay ({id}) {
           setCanPlaySub(true)
         }
       } catch {
-        setCanPlaySub(false)
       }
     }
 
     const checkDub = async (idAnime) => {
       try {
-        const res = await fetch(`https://api.aniapi.com/v1/episode?anime_id=${idAnime}&source=gogoanime&locale=en`)
+        const res = await fetch(`https://api.aniapi.com/v1/episode?anime_id=${idAnime}&source=gogoanime_dub&locale=en`)
         const data = await res.json()
         if (data.status_code === 404) {
           setCanPlayDub(false)
@@ -263,7 +262,6 @@ function ButtonPlay ({id}) {
           setCanPlayDub(true)
         }        
       } catch {
-        setCanPlayDub(false)
       }
     }
 
