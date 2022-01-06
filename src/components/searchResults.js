@@ -59,7 +59,7 @@ function AnimeBoxes({ display, apiFilter, firstSearch, setFirstSearch }) {
           season={season}
           year={year}
           description={description}
-          width={"c-6"}
+          width={"c-6 l-6 m-12 s-12"}
           id={anime.id}
         />
       ) : (
@@ -71,7 +71,7 @@ function AnimeBoxes({ display, apiFilter, firstSearch, setFirstSearch }) {
           season={season}
           year={year}
           id={anime.id}
-          width="c-2-4"
+          width="c-2-4 l-3 m-6 s-6"
         />
       );
     });

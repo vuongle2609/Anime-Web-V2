@@ -4,9 +4,10 @@ import Home from "./components/homeContainer";
 import AnimeWatch from "./components/animeWatch"
 import MoreAnimes from "./components/listAnimes";
 import AnimeDetail from "./components/animeDetail";
+import ButtonNav from "./components/buttonNav";
 import { Routes, Route } from "react-router-dom";
-import "./responsive.css";
 import "./style.scss";
+import "./responsive.css";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "boxicons";
@@ -24,6 +25,7 @@ function App() {
           <Route path="/More" element={<MoreAnimes />} />
           <Route path="/Watch" element={<AnimeWatch />} />
         </Routes>
+      <ButtonNav />
     </>
   );
 }

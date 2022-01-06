@@ -61,7 +61,7 @@ function Search() {
     <>
       <div className="body grid wide search">
         <div className="body-container row">
-          <div className="left-container col c-3">
+          <div className="left-container col c-3 l-4 m-5 s-12">
             <FilterBar
               seasonHandle={seasonHandle}
               titleHandle={titleHandle}
@@ -71,7 +71,7 @@ function Search() {
               genresHandle={genresHandle}
             />
           </div>
-          <div className="right-container col c-9">
+          <div className="right-container col c-9 l-8 m-7 s-12">
             <RightRender
               apiFilter={apiFilter}
               firstSearch={firstSearch}

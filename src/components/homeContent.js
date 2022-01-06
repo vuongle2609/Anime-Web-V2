@@ -56,8 +56,9 @@ export default function HomeContent(props) {
   }, [season, year]);
 
   return (
-    <div className="row">
+    <>
       <NavCategory title={props.text} isD={true} year={year} season={season} type={props.type}/>
+    <div className="row home-content">
       {animeData ? (
         animeData.data.documents.map((anime, index) => {
           if (index < 6) {
@@ -77,7 +78,7 @@ export default function HomeContent(props) {
                 season={season}
                 year={year}
                 description={description}
-                width={"c-2"}
+                width={"c-2 l-2-4 m-4 s-6"}
                 id={anime.id}
               />
             );
@@ -87,6 +88,6 @@ export default function HomeContent(props) {
       ) : (
         <Fuckusers firstSearch={false} isLoading={true} />
       )}
-    </div>
+    </div></>
   );
 }

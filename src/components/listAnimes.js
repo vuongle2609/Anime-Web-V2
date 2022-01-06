@@ -78,7 +78,7 @@ function MoreAnimes() {
                   season={season}
                   year={year}
                   description={description}
-                  width={"c-4"}
+                  width={"c-4 m-6 s-12"}
                   id={anime.id}
                 />
               ) : (
@@ -90,7 +90,7 @@ function MoreAnimes() {
                   season={season}
                   year={year}
                   id={anime.id}
-                  width="c-2"
+                  width="c-2 l-2-4 m-4 s-6"
                 />
               );
             })}

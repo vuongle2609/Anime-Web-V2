@@ -19,7 +19,7 @@ function AnimeDetailInfo({
   season,
 }) {
   return (
-    <div className="col c-2">
+    <div className="col c-2 l-3 m-12 s-12">
       <ul className="info-anime">
         <li>
           <p>Format</p>
@@ -90,7 +90,7 @@ function AnimeDetailDetail({ animeData, addTags, openingData }) {
   }, []);
 
   return (
-    <div className="col c-10">
+    <div className="col c-10 l-9 m-12 s-12">
       <div className="detail-anime">
         <a
           className="link-detail"
@@ -151,7 +151,7 @@ function AnimeDetailDetail({ animeData, addTags, openingData }) {
                   season={sequel.season_period}
                   year={sequel.season_year}
                   description={sequel.description}
-                  width={"c-2-4"}
+                  width={"c-2-4 l-3 m-4 s-6"}
                   id={sequel.id}
                   newtab={"_blank"}
                 />
@@ -167,7 +167,7 @@ function AnimeDetailDetail({ animeData, addTags, openingData }) {
                   season={prequel.season_period}
                   year={prequel.season_year}
                   description={prequel.description}
-                  width={"c-2-4"}
+                  width={"c-2-4 l-3 m-4 s-6"}
                   id={prequel.id}
                   newtab={"_blank"}
                 />
@@ -187,7 +187,7 @@ function AnimeDetailDetail({ animeData, addTags, openingData }) {
               {openingData.map((song, index) => (
                 <li key={index}>
                   <div>
-                    <div>
+                    <div className="song-label">
                       <div>
                         <h2>{song.title}</h2>
                         <span>{song.artist}</span>
@@ -314,10 +314,16 @@ function ButtonPlay(props) {
       to={`/Watch?id=${props.id}&sub=${canPlaySub}&dub=${canPlayDub}`}
       onClick={handleHistory}
     >
-      <span className="">Watch now</span>
+      <span className="detail-buttons-item ">
+        <box-icon color="#fff" name="play"></box-icon>
+        <p className="btn-item-watch buttons-item-label">Watch now</p>
+      </span>
     </Link>
   ) : (
-    <span className="no-video">Watch now</span>
+    <span className="no-video detail-buttons-item ">
+      <box-icon color="#fff" name="play"></box-icon>
+      <p className="btn-item-watch buttons-item-label">Watch now</p>
+    </span>
   );
 }
 
@@ -383,14 +389,14 @@ function ButtonCollection(props) {
   };
 
   return isCollected ? (
-    <span onClick={handleCollect} className="collected">
-      <box-icon color="#fff" name='list-minus'></box-icon>
-      Remove
+    <span className="detail-buttons-item collected" onClick={handleCollect}>
+      <box-icon color="#fff" name="list-minus"></box-icon>
+      <p className="item-label buttons-item-label">Unfavorite</p>
     </span>
   ) : (
-    <span onClick={handleCollect} className="">
+    <span className="detail-buttons-item" onClick={handleCollect}>
       <box-icon color="#fff" name="list-plus"></box-icon>
-      Add to collection
+      <p className="item-label buttons-item-label">Favorite</p>
     </span>
   );
 }
@@ -507,20 +513,61 @@ function AnimeDetail() {
           }")`,
         }}
       ></div>
-      <div className="grid wide ">
-        <div className="header-anime">
-          <div
-            className="cover"
-            style={{
-              backgroundImage: `url("${animeData.cover_image}")`,
-            }}
-          ></div>
-          <div className="detail">
-            <div>
-              <h1>{animeData.titles.en}</h1>
-              <span>{animeData.titles.jp}</span>
+      <div className="grid wide">
+        <div className="row header-detail">
+          <div className="col m-4 c-2-4 l-3 s-4">
+            <img
+              src={animeData.cover_image}
+              className="detail-cover"
+              width="100%"
+              height="auto"
+              alt=""
+            />
+          </div>
+          <div className="col c-9 l-9 m-8 s-8">
+            <div className="anime-detail1">
+              <h2 className="anime-detail-title">{animeData.titles.en}</h2>
+              <p className="anime-detail-subtitle">{animeData.titles.jp}</p>
+              <div className="anime-detail-space">a</div>
+              <div className="pc-btns anime-detail-butons">
+                <ButtonPlay
+                  id={animeData.id}
+                  title={animeData.titles}
+                  status={animeData.status}
+                  season={animeData.season_period}
+                  cover={animeData.cover_image}
+                  year={animeData.season_year}
+                  genres={animeData.genres}
+                  description={animeData.descriptions}
+                />
+
+                <ButtonCollection
+                  id={animeData.id}
+                  title={animeData.titles}
+                  status={animeData.status}
+                  season={animeData.season_period}
+                  cover={animeData.cover_image}
+                  year={animeData.season_year}
+                  genres={animeData.genres}
+                  description={animeData.descriptions}
+                />
+
+                <span className="detail-buttons-item">
+                  <box-icon color="#fff" name='chevrons-right' ></box-icon>
+                  <p className="item-label buttons-item-label">Continue</p>
+                </span>
+                <span className="detail-buttons-item">
+                  <box-icon color="#fff" name="block"></box-icon>
+                  <p className="item-label buttons-item-label">Black list</p>
+                </span>
+              </div>
             </div>
-            <div>
+          </div>
+        </div>
+
+        <div className="row">
+          <div className="col phone-btns c-12 l-12 m-12 s-12">
+            <div className="anime-detail-butons">
               <ButtonPlay
                 id={animeData.id}
                 title={animeData.titles}
@@ -531,6 +578,7 @@ function AnimeDetail() {
                 genres={animeData.genres}
                 description={animeData.descriptions}
               />
+
               <ButtonCollection
                 id={animeData.id}
                 title={animeData.titles}
@@ -541,23 +589,28 @@ function AnimeDetail() {
                 genres={animeData.genres}
                 description={animeData.descriptions}
               />
-              <span>
-                <box-icon color="#fff" name="play"></box-icon>
-                Continue Watch
+
+              <span className="detail-buttons-item">
+                <box-icon color="#fff" name='chevrons-right' ></box-icon>
+                <p className="item-label buttons-item-label">Continue</p>
               </span>
-              <span>
+              <span className="detail-buttons-item">
                 <box-icon color="#fff" name="block"></box-icon>
-                Black list
+                <p className="item-label buttons-item-label">Black list</p>
               </span>
             </div>
           </div>
         </div>
 
-        <span className="description">
-          {animeData.descriptions.en === null
-            ? ""
-            : parse(animeData.descriptions.en)}
-        </span>
+        <div className="row">
+          <div className="col c-12">
+            <span className="description">
+              {animeData.descriptions.en === null
+                ? ""
+                : parse(animeData.descriptions.en)}
+            </span>
+          </div>
+        </div>
 
         <div className="row">
           <AnimeDetailInfo
