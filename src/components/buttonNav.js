@@ -14,7 +14,9 @@ function ButtonNav() {
         <box-icon color="#fff" name="menu"></box-icon>
         <div className="button-nav-menu">
             <div className="button-nav-menu__item">
-          <Link to="/Home">
+          <Link to="/Home" onClick={() => {
+            localStorage.removeItem("searchdata")
+          }}>
               <box-icon color="#fff" name="home"></box-icon>
               <p>Home</p>
           </Link>
@@ -50,7 +52,7 @@ function ButtonNav() {
           </Link>
             </div>
             <div className="button-nav-menu__item">
-          <Link to="">
+          <Link to={`/AnimeDetail?random=true`} >
               <box-icon color="#fff" name="shuffle"></box-icon>
               <p>Random</p>
           </Link>

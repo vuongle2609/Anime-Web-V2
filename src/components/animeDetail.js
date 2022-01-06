@@ -71,9 +71,12 @@ function AnimeDetailDetail({ animeData, addTags, openingData }) {
   const [sequel, setSequel] = useState(false);
 
   useEffect(() => {
+    let abortController = new AbortController();
     const fetchOAnimeData = async (id, callback) => {
       try {
-        const res = await fetch(`https://api.aniapi.com/v1/anime/${id}`);
+        const res = await fetch(`https://api.aniapi.com/v1/anime/${id}`, {
+          signal: abortController.signal,
+        });
         const data = await res.json();
         callback(data.data);
       } catch {
@@ -83,11 +86,19 @@ function AnimeDetailDetail({ animeData, addTags, openingData }) {
 
     if (animeData.prequel !== undefined) {
       fetchOAnimeData(animeData.prequel, setPrequel);
+    } else {
+      setPrequel(false)
     }
     if (animeData.sequel !== undefined) {
       fetchOAnimeData(animeData.sequel, setSequel);
+    } else {
+      setSequel(false)
     }
-  }, []);
+
+    return () => {
+      abortController.abort();
+    };
+  }, [animeData]);
 
   return (
     <div className="col c-10 l-9 m-12 s-12">
@@ -153,7 +164,6 @@ function AnimeDetailDetail({ animeData, addTags, openingData }) {
                   description={sequel.description}
                   width={"c-2-4 l-3 m-4 s-6"}
                   id={sequel.id}
-                  newtab={"_blank"}
                 />
               ) : (
                 false
@@ -169,7 +179,6 @@ function AnimeDetailDetail({ animeData, addTags, openingData }) {
                   description={prequel.description}
                   width={"c-2-4 l-3 m-4 s-6"}
                   id={prequel.id}
-                  newtab={"_blank"}
                 />
               ) : (
                 false
@@ -404,7 +413,10 @@ function ButtonCollection(props) {
 function AnimeDetail() {
   let location = useLocation();
   let query = new URLSearchParams(location.search);
-  const id = query.get("id");
+  const isRandom = (query.get("random") === 'true')
+  
+  let id = query.get("id")
+
   const [animeData, setAnimeData] = useState(false);
   const [openingData, setOpeningData] = useState(false);
   let tags = [];
@@ -415,19 +427,33 @@ function AnimeDetail() {
     document.querySelector(".box-nav").classList.remove("active");
     document.querySelector(".back-btn").classList.add("active");
 
-    fetch(`https://api.aniapi.com/v1/anime/${id}`)
-      .then((res) => res.json())
-      .then((data) => setAnimeData(data.data));
+    if (isRandom) {
+      const getRandom = async () => {
+        const res = await fetch('https://api.aniapi.com/v1/random/anime/1/true')
+        const data = await res.json()
+        id = data.data[0].id
+        setAnimeData(data.data[0])
+        const res1 = await fetch(`https://api.aniapi.com/v1/song?anime_id=${data.data[0].id}`)
+        const data1 = await res1.json()
+        setOpeningData(data1.data.documents)
+      }
 
-    fetch(`https://api.aniapi.com/v1/song?anime_id=${id}`)
-      .then((res) => res.json())
-      .then((data) => setOpeningData(data.data.documents));
+      getRandom()
+    } else {
+      fetch(`https://api.aniapi.com/v1/anime/${id}`)
+        .then((res) => res.json())
+        .then((data) => setAnimeData(data.data));
+
+      fetch(`https://api.aniapi.com/v1/song?anime_id=${id}`)
+        .then((res) => res.json())
+        .then((data) => setOpeningData(data.data.documents));
+    }
 
     return () => {
       document.querySelector(".header").classList.remove("active");
       document.querySelector(".back-btn").classList.remove("active");
     };
-  }, []);
+  }, [location]);
 
   const addTags = (newTag) => {
     tags.push(newTag);

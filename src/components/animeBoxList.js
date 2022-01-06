@@ -40,7 +40,7 @@ function BoxAnimeList({ cover, title, status, season, year, id, width, newtab })
   }
   return (
     <div className={`col ${width}`}>
-      <Link to={`/AnimeDetail?id=${id}`} target={newtab ? newtab : null} rel="noopener noreferrer">
+      <Link to={`/AnimeDetail?id=${id}`}>
         <div className="box-L-container">
           <div style={{ backgroundImage: `url('${cover}')` }}></div>
           <div>

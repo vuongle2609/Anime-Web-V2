@@ -18,7 +18,7 @@ function Navigation() {
     <>
       <div className=" header grid wide">
         <div className="popular">
-          <div className="logo">
+          <Link to="/Home" className="logo">
             <div className="back-btn" onClick={() => navigate(-1)}>
               <box-icon color="#fff" name="arrow-back"></box-icon>
             </div>
@@ -29,17 +29,16 @@ function Navigation() {
               }}
             ></div>
             <span>Paff Wandering</span>
-          </div>
+          </Link>
           <div className="nav">
-            <OldSchoolMenuLink to="/Home">
-              <span
-                onClick={() => {
-                  localStorage.removeItem("searchdata");
-                }}
-                className="active nav-items"
-              >
-                Home
-              </span>
+            <OldSchoolMenuLink
+              to="/Home"
+            >
+              <span onClick={() => {
+                console.log("a")
+                localStorage.removeItem("searchdata");
+              }}
+              className="nav-items">Home</span>
             </OldSchoolMenuLink>
             <OldSchoolMenuLink to="/Search">
               <span className=" nav-items">Search</span>
