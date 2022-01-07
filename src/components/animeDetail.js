@@ -705,7 +705,16 @@ function AnimeDetail() {
                 <p className="item-label buttons-item-label">Share</p>
               </span>
 
-              <ButtonBlock id={animeData.id} />
+              <ButtonBlock
+                  id={animeData.id}
+                  title={animeData.titles}
+                  status={animeData.status}
+                  season={animeData.season_period}
+                  cover={animeData.cover_image}
+                  year={animeData.season_year}
+                  genres={animeData.genres}
+                  description={animeData.descriptions}
+                />
             </div>
           </div>
         </div>

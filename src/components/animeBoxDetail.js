@@ -1,9 +1,115 @@
 import { Link } from "react-router-dom";
 import parse from "html-react-parser";
+import { useEffect, useState } from "react";
+
+function ActionButtonsWatch(props) {
+  const [isCollected, setIsCollected] = useState(false);
+
+  useEffect(() => {
+    const b = JSON.parse(localStorage.getItem("collection"));
+    if (b) {
+      b.filter((anime) => {
+        if (anime.id === props.id) {
+          setIsCollected(true);
+        }
+      });
+    }
+  }, []);
+
+  const handleCollect = () => {
+    if (!localStorage.getItem("collection")) {
+      const a = [
+        {
+          id: props.id,
+          titles: props.titles,
+          status: props.status,
+          season_period: props.season,
+          cover_image: props.cover,
+          season_year: props.year,
+          genres: props.genres,
+          descriptions: props.description,
+        },
+      ];
+      localStorage.setItem("collection", JSON.stringify(a));
+      setIsCollected(true);
+    } else {
+      const b = JSON.parse(localStorage.getItem("collection"));
+
+      const c = b.filter((anime) => {
+        if (anime.id !== props.id) {
+          return anime;
+        }
+      });
+
+      let a = !(b.length === c.length);
+
+      if (a) {
+        localStorage.setItem("collection", JSON.stringify(c));
+        setIsCollected(false);
+      } else {
+        b.unshift({
+          id: props.id,
+          titles: props.titles,
+          status: props.status,
+          season_period: props.season,
+          cover_image: props.cover,
+          season_year: props.year,
+          genres: props.genres,
+          descriptions: props.description,
+        });
+        localStorage.setItem("collection", JSON.stringify(b));
+        setIsCollected(true);
+      }
+    }
+  };
+
+  return (
+    <div>
+      <Link to={`/AnimeDetail?id=${props.id}`}>
+        <div className="play-btn">
+          <box-icon color="#fff" name="play"></box-icon>
+        </div>
+      </Link>
+      {isCollected ? (
+        <div onClick={handleCollect} style={{ backgroundColor: '#ff7675'}}>
+          <box-icon color="#fff" name='heart' type='solid' ></box-icon>
+        </div>
+      ) : (
+        <div onClick={handleCollect}>
+          <box-icon color="#fff" name='heart' type='solid' ></box-icon>
+        </div>
+      )}
+    </div>
+  );
+}
+
+function ActionButtonsBlock(props) {
+  const handleBlock = () => {
+    const blockObj = JSON.parse(localStorage.blacklist);
+
+    const newBlacklist = blockObj.filter((obj) => {
+      if (obj.id !== props.id) {
+        return obj;
+      }
+    });
+
+    localStorage.setItem("blacklist", JSON.stringify(newBlacklist));
+    props.settrigger(!props.trigger);
+  };
+
+  return (
+    <div>
+      <div onClick={handleBlock} style={{ backgroundColor: "#ff0000" }}>
+        <box-icon color="#fff" name="block"></box-icon>
+      </div>
+    </div>
+  );
+}
 
 function BoxAnimeDetail({
   cover,
   title,
+  titles,
   status,
   genres,
   season,
@@ -12,6 +118,8 @@ function BoxAnimeDetail({
   width,
   id,
   block,
+  trigger,
+  settrigger,
 }) {
   let isBlock = 0;
   let box_status;
@@ -35,7 +143,7 @@ function BoxAnimeDetail({
   }
 
   if (description.en === "" || description.en === null) {
-    box_description = "This anime doesn't has an English description yet";
+    box_description = "This anime doesn't has English description yet";
   } else {
     box_description = description.en;
   }
@@ -85,10 +193,6 @@ function BoxAnimeDetail({
               <div>
                 <div>
                   <h3>{title}</h3>
-                  <box-icon
-                    color="#fff"
-                    name="dots-vertical-rounded"
-                  ></box-icon>
                 </div>
                 <p>
                   Status : <span>{box_status}</span>
@@ -106,20 +210,12 @@ function BoxAnimeDetail({
             </div>
             <div className="box-action">
               <span>{parse(box_description)}</span>
-              <div>
-                <Link to={`/AnimeDetail?id=${id}`}>
-                  <div className="play-btn">
-                    <box-icon color="#fff" name="play"></box-icon>
-                  </div>
-                </Link>
-                <div>
-                  <box-icon
-                    color="#fff"
-                    name="add-to-queue"
-                    type="solid"
-                  ></box-icon>
-                </div>
-              </div>
+              <ActionButtonsBlock
+                settrigger={settrigger}
+                trigger={trigger}
+                id={id}
+                block={block}
+              />
             </div>
           </div>
         </div>
@@ -137,7 +233,6 @@ function BoxAnimeDetail({
             <div>
               <div>
                 <h3>{title}</h3>
-                <box-icon color="#fff" name="dots-vertical-rounded"></box-icon>
               </div>
               <p>
                 Status : <span>{box_status}</span>
@@ -153,20 +248,17 @@ function BoxAnimeDetail({
           </div>
           <div className="box-action">
             <span>{parse(box_description)}</span>
-            <div>
-              <Link to={`/AnimeDetail?id=${id}`}>
-                <div className="play-btn">
-                  <box-icon color="#fff" name="play"></box-icon>
-                </div>
-              </Link>
-              <div>
-                <box-icon
-                  color="#fff"
-                  name="add-to-queue"
-                  type="solid"
-                ></box-icon>
-              </div>
-            </div>
+            <ActionButtonsWatch
+              titles={titles}
+              status={status}
+              season={season}
+              cover={cover}
+              year={year}
+              genres={genres}
+              description={description}
+              id={id}
+              block={block}
+            />
           </div>
         </div>
       </div>
