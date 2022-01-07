@@ -14,6 +14,10 @@ function ActionButtonsWatch(props) {
         }
       });
     }
+
+    return () => {
+
+    }
   }, []);
 
   const handleCollect = () => {
@@ -61,7 +65,7 @@ function ActionButtonsWatch(props) {
         setIsCollected(true);
       }
     }
-  };
+    };
 
   return (
     <div>
@@ -71,12 +75,12 @@ function ActionButtonsWatch(props) {
         </div>
       </Link>
       {isCollected ? (
-        <div onClick={handleCollect} style={{ backgroundColor: '#ff7675'}}>
-          <box-icon color="#fff" name='heart' type='solid' ></box-icon>
+        <div onClick={handleCollect} style={{ backgroundColor: "#ff7675" }}>
+          <box-icon color="#fff" name="heart" type="solid"></box-icon>
         </div>
       ) : (
         <div onClick={handleCollect}>
-          <box-icon color="#fff" name='heart' type='solid' ></box-icon>
+          <box-icon color="#fff" name="heart" type="solid"></box-icon>
         </div>
       )}
     </div>
@@ -120,6 +124,8 @@ function BoxAnimeDetail({
   block,
   trigger,
   settrigger,
+  display,
+setDisplay,
 }) {
   let isBlock = 0;
   let box_status;
@@ -211,8 +217,8 @@ function BoxAnimeDetail({
             <div className="box-action">
               <span>{parse(box_description)}</span>
               <ActionButtonsBlock
-                settrigger={settrigger}
-                trigger={trigger}
+                display={display}
+                setDisplay={setDisplay}
                 id={id}
                 block={block}
               />
@@ -249,6 +255,8 @@ function BoxAnimeDetail({
           <div className="box-action">
             <span>{parse(box_description)}</span>
             <ActionButtonsWatch
+              settrigger={settrigger}
+              trigger={trigger}
               titles={titles}
               status={status}
               season={season}

@@ -87,6 +87,8 @@ function MoreAnimes() {
       document.querySelector(".back-btn").classList.remove("active");
       document.querySelector("#history").classList.remove("active");
       document.querySelector("#collection").classList.remove("active");
+
+      setDisplay(false)
     };
   }, [type, api, location]);
 
