@@ -4,6 +4,7 @@ $base-color: #fbaa33;
 $gray-color: #9e9eb9;
 $dark-color: #1f1d2b;
 $semi-gray: #252836;
+$white-color: #fff;
 
 html {
   font-size: 62.5%;
@@ -87,7 +88,7 @@ button {
 
   span {
     margin-left: 10px;
-    color: #fff;
+    color: $white-color;
     font-size: 1.8rem;
   }
 }
@@ -95,17 +96,17 @@ button {
 .popular .nav {
   display: flex;
   font-size: 1.6rem;
-  color: #fff;
+  color: $white-color;
   align-items: center;
   min-height: 62px;
 
   span {
     display: flex;
-    width: 250px;
+    width: 140px;
     align-items: center;
     justify-content: center;
     height: 62px;
-    color: #fff;
+    color: $white-color;
     transition: all 0.1s ease-in-out;
 
     div {
@@ -146,7 +147,6 @@ button {
   position: relative;
   padding-top: 0 !important;
   padding-bottom: 0 !important;
-
   z-index: 100;
 
   &.active {
@@ -155,7 +155,7 @@ button {
     .popular {
       .logo {
         span {
-          color: #fff;
+          color: $white-color;
           font-weight: 500;
         }
       }
@@ -163,7 +163,7 @@ button {
       .nav {
         a {
           span {
-            color: #fff;
+            color: $white-color;
             font-weight: 500;
           }
 
@@ -223,11 +223,11 @@ button {
   }
 
   span.active {
-    color: #fff;
+    color: $white-color;
   }
 
   span:hover {
-    color: #fff;
+    color: $white-color;
     cursor: pointer;
   }
 }
@@ -242,7 +242,7 @@ button {
     border-bottom: 1px solid #9e9ea8;
     width: 100%;
     padding-bottom: 10px;
-    color: #fff;
+    color: $white-color;
     padding-left: 32px;
     padding-right: 5px;
   }
@@ -275,7 +275,7 @@ button {
     justify-content: space-between;
 
     span {
-      color: #fff;
+      color: $white-color;
       font-size: 1.4rem;
     }
   }
@@ -292,7 +292,7 @@ button {
 
     span {
       font-size: 2rem;
-      color: #fff;
+      color: $white-color;
     }
 
     li {
@@ -380,7 +380,7 @@ button {
     justify-content: space-between;
 
     span {
-      color: #fff;
+      color: $white-color;
       font-size: 1.4rem;
     }
   }
@@ -397,7 +397,7 @@ button {
 
     span {
       font-size: 2rem;
-      color: #fff;
+      color: $white-color;
     }
 
     li {
@@ -466,7 +466,7 @@ button {
     justify-content: space-between;
 
     span {
-      color: #fff;
+      color: $white-color;
       font-size: 1.4rem;
     }
   }
@@ -483,7 +483,7 @@ button {
 
     span {
       font-size: 2rem;
-      color: #fff;
+      color: $white-color;
     }
 
     li {
@@ -551,7 +551,7 @@ button {
     width: 100%;
     background-color: #2db386;
     font-size: 1.6rem;
-    color: #fff;
+    color: $white-color;
   }
 
   &:hover {
@@ -702,7 +702,7 @@ button {
 
   .box-main-info {
     margin-left: 120px;
-    color: #fff;
+    color: $white-color;
     padding: 10px;
 
     div {
@@ -740,7 +740,7 @@ button {
     margin-left: 8px;
 
     span {
-      color: #fff;
+      color: $white-color;
       font-size: 1.3rem;
       overflow: hidden;
       display: block;
@@ -831,7 +831,7 @@ button {
 
     p {
       font-size: 1.1rem;
-      color: #fff;
+      color: $white-color;
       margin: 1px 0;
 
       span {
@@ -871,7 +871,7 @@ button {
   }
 
   span {
-    color: #fff;
+    color: $white-color;
     width: 100%;
     text-align: center;
     font-size: 1.6rem;
@@ -913,7 +913,7 @@ button {
 
   h2 {
     font-size: 1.6rem;
-    color: #fff;
+    color: $white-color;
   }
 
   span {
@@ -968,7 +968,7 @@ button {
 
     h2,
     span {
-      color: #fff;
+      color: $white-color;
       margin: 0 14px 0 14px;
     }
 
@@ -1072,7 +1072,7 @@ $space-arrow: 35%;
 .description {
   font-size: 1.4rem;
   line-height: 2rem;
-  color: #fff;
+  color: $white-color;
   margin: 25px 0 25px;
   display: block;
 }
@@ -1088,7 +1088,7 @@ $space-arrow: 35%;
   flex-direction: column;
 
   li {
-    color: #fff;
+    color: $white-color;
     font-size: 1.4rem;
     margin-bottom: 16px;
     width: fit-content;
@@ -1118,7 +1118,7 @@ $space-arrow: 35%;
     display: inline-flex;
     align-items: center;
     font-size: 1.4rem;
-    color: #ffffff;
+    color: $white-color;
     padding: 5px 10px;
     border-radius: 5px;
     margin-right: 10px;
@@ -1156,7 +1156,7 @@ $space-arrow: 35%;
 .title-anime {
   margin-bottom: 10px;
   font-weight: 500;
-  color: #fff;
+  color: $white-color;
   font-size: 1.8rem;
 }
 
@@ -1166,7 +1166,7 @@ $space-arrow: 35%;
   ul {
     padding: 0;
     list-style: none;
-    color: #fff;
+    color: $white-color;
 
     li {
       margin-bottom: 15px;
@@ -1228,7 +1228,7 @@ $space-arrow: 35%;
 
 .anime-detail-title {
   font-size: 7rem;
-  color: #fff;
+  color: $white-color;
   line-height: 7.2rem;
   user-select: text;
   overflow: hidden;
@@ -1240,7 +1240,7 @@ $space-arrow: 35%;
 
 .anime-detail-subtitle {
   font-size: 2rem;
-  color: #fff;
+  color: $white-color;
 }
 
 .anime-detail-space {
@@ -1290,7 +1290,7 @@ $space-arrow: 35%;
 }
 
 .buttons-item-label {
-  color: #fff;
+  color: $white-color;
   margin-left: 3px;
 }
 
@@ -1310,13 +1310,13 @@ $space-arrow: 35%;
 
 .anime-watch {
   h1 {
-    color: #fff;
+    color: $white-color;
     font-size: 3rem;
     margin-bottom: 10px;
   }
 
   .list-ep {
-    color: #fff;
+    color: $white-color;
     font-size: 1.6rem;
     margin-top: 20px;
 
@@ -1413,7 +1413,7 @@ $space-arrow: 35%;
   }
 
   p {
-    color: #fff;
+    color: $white-color;
     font-size: 1rem;
   }
 }

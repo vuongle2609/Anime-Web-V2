@@ -57,27 +57,6 @@ function BoxAnimeList({
     }
   }
 
-  // return !unblock && isBlock === 0 ?
-  // (
-  //   <div className={`col ${width}`}>
-  //     <Link to={`/AnimeDetail?id=${id}`}>
-  //       <div className="box-L-container">
-  //         <div style={{ backgroundImage: `url('${cover}')` }}></div>
-  //         <div>
-  //           <p>{title}</p>
-  //           <p>
-  //             Status : <span>{box_status}</span>
-  //           </p>
-  //           <p>
-  //             Season :{" "}
-  //             <span>{box_season ? box_season + " " + year : "Unknown"}</span>
-  //           </p>
-  //         </div>
-  //       </div>
-  //     </Link>
-  //   </div>
-  // ) : false;
-
   let box 
   if (isBlock !== 0) {
     if (!block) {

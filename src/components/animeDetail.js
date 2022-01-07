@@ -657,8 +657,8 @@ function AnimeDetail() {
                 />
 
                 <span className="detail-buttons-item">
-                  <box-icon color="#fff" name="chevrons-right"></box-icon>
-                  <p className="item-label buttons-item-label">Continue</p>
+                  <box-icon name="share" color="#fff"></box-icon>
+                  <p className="item-label buttons-item-label">Share</p>
                 </span>
                 <ButtonBlock
                   id={animeData.id}
@@ -701,8 +701,8 @@ function AnimeDetail() {
               />
 
               <span className="detail-buttons-item">
-                <box-icon color="#fff" name="chevrons-right"></box-icon>
-                <p className="item-label buttons-item-label">Continue</p>
+                <box-icon name="share" color="#fff"></box-icon>
+                <p className="item-label buttons-item-label">Share</p>
               </span>
 
               <ButtonBlock id={animeData.id} />

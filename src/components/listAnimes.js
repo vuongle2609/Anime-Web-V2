@@ -30,9 +30,11 @@ function MoreAnimes() {
     document.querySelector(".back-btn").classList.add("active");
 
     if (typeload === "history") {
+      document.querySelector("#history").classList.add("active");
       setNothing(<Fuckusers firstSearch={false} isLoading={false} text="Nothing here yet"/>)
       setAnimeData(JSON.parse(localStorage.getItem(`history`)))
     } else if (typeload === "collection") {
+      document.querySelector("#collection").classList.add("active");
       setNothing(<Fuckusers firstSearch={false} isLoading={false} text="Nothing here yet"/>)
       setAnimeData(JSON.parse(localStorage.getItem(`collection`)))
     } else if (typeload === "blacklist") {
@@ -59,8 +61,12 @@ function MoreAnimes() {
       }
     }
 
-    return () => document.querySelector(".back-btn").classList.remove("active");
-  }, [type, api]);
+    return () => {
+      document.querySelector(".back-btn").classList.remove("active");
+      document.querySelector("#history").classList.remove("active");
+      document.querySelector("#collection").classList.remove("active");
+    }
+  }, [type, api, location]);
 
   return animeData ? (
     <div className="body grid wide home">

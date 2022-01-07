@@ -34,19 +34,13 @@ function ButtonNav() {
           </Link>
             </div>
             <div className="button-nav-menu__item">
-          <button>
-              <box-icon color="#fff" name="moon"></box-icon>
-              <p>display</p>
-          </button>
-            </div>
-            <div className="button-nav-menu__item">
           <Link to="/More?typeload=history">
               <box-icon color="#fff" name="history"></box-icon>
               <p>History</p>
           </Link>
             </div>
             <div className="button-nav-menu__item">
-          <Link to="">
+          <Link to="/More?typeload=blacklist">
               <box-icon color="#fff" name="block"></box-icon>
               <p>Black list</p>
           </Link>
@@ -58,10 +52,10 @@ function ButtonNav() {
           </Link>
             </div>
             <div className="button-nav-menu__item">
-          <Link to="">
+          <a href="https://www.facebook.com/vuong.lethanh.315/" target="_blank" rel="noopener">
               <box-icon color="#fff" name="user"></box-icon>
-              <p>User</p>
-          </Link>
+              <p>Contact</p>
+          </a>
             </div>
         </div>
       </div>
