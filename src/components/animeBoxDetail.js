@@ -11,7 +11,9 @@ function BoxAnimeDetail({
   description,
   width,
   id,
+  block,
 }) {
+  let isBlock = 0;
   let box_status;
   let box_season;
   let box_genres;
@@ -57,52 +59,121 @@ function BoxAnimeDetail({
     default:
   }
 
+  if (localStorage.blacklist) {
+    const local = JSON.parse(localStorage.blacklist);
+    const ll = local.length;
+    for (let i = 0; i < ll; i++) {
+      local[i].id === id ? isBlock++ : (isBlock += 0);
+    }
+  }
+
   box_genres = genres[0] + " ," + genres[1];
-  return (
-    <div className={`col ${width}`}>
-      <div className="box-D-container">
-        <div
-          className="box-D-img"
-          style={{ backgroundImage: `url("${cover}")` }}
-        ></div>
-        <div className="box-main-info">
-          <div>
-            <div>
-              <h3>{title}</h3>
-              <box-icon color="#fff" name="dots-vertical-rounded"></box-icon>
+
+  let box;
+  if (isBlock !== 0) {
+    if (!block) {
+      box = false;
+    } else {
+      box = (
+        <div className={`col ${width}`}>
+          <div className="box-D-container">
+            <div
+              className="box-D-img"
+              style={{ backgroundImage: `url("${cover}")` }}
+            ></div>
+            <div className="box-main-info">
+              <div>
+                <div>
+                  <h3>{title}</h3>
+                  <box-icon
+                    color="#fff"
+                    name="dots-vertical-rounded"
+                  ></box-icon>
+                </div>
+                <p>
+                  Status : <span>{box_status}</span>
+                </p>
+                <p>
+                  Genres : <span>{box_genres}</span>
+                </p>
+                <p>
+                  Season :{" "}
+                  <span>
+                    {box_season ? box_season + " " + year : "Unknown"}
+                  </span>
+                </p>
+              </div>
             </div>
-            <p>
-              Status : <span>{box_status}</span>
-            </p>
-            <p>
-              Genres : <span>{box_genres}</span>
-            </p>
-            <p>
-              Season :{" "}
-              <span>{box_season ? box_season + " " + year : "Unknown"}</span>
-            </p>
+            <div className="box-action">
+              <span>{parse(box_description)}</span>
+              <div>
+                <Link to={`/AnimeDetail?id=${id}`}>
+                  <div className="play-btn">
+                    <box-icon color="#fff" name="play"></box-icon>
+                  </div>
+                </Link>
+                <div>
+                  <box-icon
+                    color="#fff"
+                    name="add-to-queue"
+                    type="solid"
+                  ></box-icon>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-        <div className="box-action">
-          <span>{parse(box_description)}</span>
-          <div>
-            <Link to={`/AnimeDetail?id=${id}`} >
-              <div className="play-btn">
-                <box-icon color="#fff" name="play"></box-icon>
-              </div>
-            </Link>
+      );
+    }
+  } else if (isBlock === 0) {
+    box = (
+      <div className={`col ${width}`}>
+        <div className="box-D-container">
+          <div
+            className="box-D-img"
+            style={{ backgroundImage: `url("${cover}")` }}
+          ></div>
+          <div className="box-main-info">
             <div>
-              <box-icon
-                color="#fff"
-                name="add-to-queue"
-                type="solid"
-              ></box-icon>
+              <div>
+                <h3>{title}</h3>
+                <box-icon color="#fff" name="dots-vertical-rounded"></box-icon>
+              </div>
+              <p>
+                Status : <span>{box_status}</span>
+              </p>
+              <p>
+                Genres : <span>{box_genres}</span>
+              </p>
+              <p>
+                Season :{" "}
+                <span>{box_season ? box_season + " " + year : "Unknown"}</span>
+              </p>
+            </div>
+          </div>
+          <div className="box-action">
+            <span>{parse(box_description)}</span>
+            <div>
+              <Link to={`/AnimeDetail?id=${id}`}>
+                <div className="play-btn">
+                  <box-icon color="#fff" name="play"></box-icon>
+                </div>
+              </Link>
+              <div>
+                <box-icon
+                  color="#fff"
+                  name="add-to-queue"
+                  type="solid"
+                ></box-icon>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-  );
+    );
+  }
+
+  return box;
 }
 
 export default BoxAnimeDetail;

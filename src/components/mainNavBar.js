@@ -35,7 +35,6 @@ function Navigation() {
               to="/Home"
             >
               <span onClick={() => {
-                console.log("a")
                 localStorage.removeItem("searchdata");
               }}
               className="nav-items">Home</span>

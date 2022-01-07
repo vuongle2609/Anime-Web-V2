@@ -87,12 +87,12 @@ function AnimeDetailDetail({ animeData, addTags, openingData }) {
     if (animeData.prequel !== undefined) {
       fetchOAnimeData(animeData.prequel, setPrequel);
     } else {
-      setPrequel(false)
+      setPrequel(false);
     }
     if (animeData.sequel !== undefined) {
       fetchOAnimeData(animeData.sequel, setSequel);
     } else {
-      setSequel(false)
+      setSequel(false);
     }
 
     return () => {
@@ -410,12 +410,86 @@ function ButtonCollection(props) {
   );
 }
 
+function ButtonBlock(props) {
+  const [isBlocked, setIsBlocked] = useState(false);
+
+  useEffect(() => {
+    const b = JSON.parse(localStorage.getItem("blacklist"));
+    if (b) {
+      b.filter((anime) => {
+        if (anime.id === props.id) {
+          setIsBlocked(true);
+        }
+      });
+    }
+  }, []);
+
+  const handleBlock = () => {
+    if (!localStorage.getItem("blacklist")) {
+      const a = [
+        {
+          id: props.id,
+          titles: props.title,
+          status: props.status,
+          season_period: props.season,
+          cover_image: props.cover,
+          season_year: props.year,
+          genres: props.genres,
+          descriptions: props.description,
+        },
+      ];
+      localStorage.setItem("blacklist", JSON.stringify(a));
+      setIsBlocked(true);
+    } else {
+      const b = JSON.parse(localStorage.getItem("blacklist"));
+
+      const c = b.filter((anime) => {
+        if (anime.id !== props.id) {
+          return anime;
+        }
+      });
+
+      let a = !(b.length === c.length);
+
+      if (a) {
+        localStorage.setItem("blacklist", JSON.stringify(c));
+        setIsBlocked(false);
+      } else {
+        b.unshift({
+          id: props.id,
+          titles: props.title,
+          status: props.status,
+          season_period: props.season,
+          cover_image: props.cover,
+          season_year: props.year,
+          genres: props.genres,
+          descriptions: props.description,
+        });
+        localStorage.setItem("blacklist", JSON.stringify(b));
+        setIsBlocked(true);
+      }
+    }
+  };
+
+  return isBlocked ? (
+    <span className="detail-buttons-item blocked" onClick={handleBlock}>
+      <box-icon color="#fff" name="block"></box-icon>
+      <p className="item-label buttons-item-label">Black list</p>
+    </span>
+  ) : (
+    <span className="detail-buttons-item" onClick={handleBlock}>
+      <box-icon color="#fff" name="block"></box-icon>
+      <p className="item-label buttons-item-label">Black list</p>
+    </span>
+  );
+}
+
 function AnimeDetail() {
   let location = useLocation();
   let query = new URLSearchParams(location.search);
-  const isRandom = (query.get("random") === 'true')
-  
-  let id = query.get("id")
+  const isRandom = query.get("random") === "true";
+
+  let id = query.get("id");
 
   const [animeData, setAnimeData] = useState(false);
   const [openingData, setOpeningData] = useState(false);
@@ -429,16 +503,20 @@ function AnimeDetail() {
 
     if (isRandom) {
       const getRandom = async () => {
-        const res = await fetch('https://api.aniapi.com/v1/random/anime/1/true')
-        const data = await res.json()
-        id = data.data[0].id
-        setAnimeData(data.data[0])
-        const res1 = await fetch(`https://api.aniapi.com/v1/song?anime_id=${data.data[0].id}`)
-        const data1 = await res1.json()
-        setOpeningData(data1.data.documents)
-      }
+        const res = await fetch(
+          "https://api.aniapi.com/v1/random/anime/1/true"
+        );
+        const data = await res.json();
+        id = data.data[0].id;
+        setAnimeData(data.data[0]);
+        const res1 = await fetch(
+          `https://api.aniapi.com/v1/song?anime_id=${data.data[0].id}`
+        );
+        const data1 = await res1.json();
+        setOpeningData(data1.data.documents);
+      };
 
-      getRandom()
+      getRandom();
     } else {
       fetch(`https://api.aniapi.com/v1/anime/${id}`)
         .then((res) => res.json())
@@ -579,13 +657,19 @@ function AnimeDetail() {
                 />
 
                 <span className="detail-buttons-item">
-                  <box-icon color="#fff" name='chevrons-right' ></box-icon>
+                  <box-icon color="#fff" name="chevrons-right"></box-icon>
                   <p className="item-label buttons-item-label">Continue</p>
                 </span>
-                <span className="detail-buttons-item">
-                  <box-icon color="#fff" name="block"></box-icon>
-                  <p className="item-label buttons-item-label">Black list</p>
-                </span>
+                <ButtonBlock
+                  id={animeData.id}
+                  title={animeData.titles}
+                  status={animeData.status}
+                  season={animeData.season_period}
+                  cover={animeData.cover_image}
+                  year={animeData.season_year}
+                  genres={animeData.genres}
+                  description={animeData.descriptions}
+                />
               </div>
             </div>
           </div>
@@ -617,13 +701,11 @@ function AnimeDetail() {
               />
 
               <span className="detail-buttons-item">
-                <box-icon color="#fff" name='chevrons-right' ></box-icon>
+                <box-icon color="#fff" name="chevrons-right"></box-icon>
                 <p className="item-label buttons-item-label">Continue</p>
               </span>
-              <span className="detail-buttons-item">
-                <box-icon color="#fff" name="block"></box-icon>
-                <p className="item-label buttons-item-label">Black list</p>
-              </span>
+
+              <ButtonBlock id={animeData.id} />
             </div>
           </div>
         </div>

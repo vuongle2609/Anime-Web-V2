@@ -16,6 +16,7 @@ function MoreAnimes() {
   const [animeData, setAnimeData] = useState();
   const [display, setDisplay] = useState(false);
   const [nothing, setNothing] = useState(false)
+  const [block, setblock] = useState(false)
 
   const handleDL = () => {
     setDisplay(false);
@@ -34,6 +35,10 @@ function MoreAnimes() {
     } else if (typeload === "collection") {
       setNothing(<Fuckusers firstSearch={false} isLoading={false} text="Nothing here yet"/>)
       setAnimeData(JSON.parse(localStorage.getItem(`collection`)))
+    } else if (typeload === "blacklist") {
+      setblock(true)
+      setNothing(<Fuckusers firstSearch={false} isLoading={false} text="Nothing here yet"/>)
+      setAnimeData(JSON.parse(localStorage.getItem(`blacklist`)))
     } else {
       setNothing(<Fuckusers firstSearch={false} isLoading={true}/>)
       const fetchAnime = async (apiAnime) => {
@@ -80,6 +85,7 @@ function MoreAnimes() {
                   description={description}
                   width={"c-4 m-6 s-12"}
                   id={anime.id}
+                  block={block}
                 />
               ) : (
                 <BoxAnimeList
@@ -91,6 +97,7 @@ function MoreAnimes() {
                   year={year}
                   id={anime.id}
                   width="c-2 l-2-4 m-4 s-6"
+                  block={block}
                 />
               );
             })}

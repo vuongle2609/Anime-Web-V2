@@ -1418,6 +1418,10 @@ $space-arrow: 35%;
   }
 }
 
+.blocked {
+  background-color: red;
+}
+
 vm-player {
   --vm-player-theme: #fbaa33;
 }

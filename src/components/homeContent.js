@@ -61,7 +61,7 @@ export default function HomeContent(props) {
     <div className="row home-content">
       {animeData ? (
         animeData.data.documents.map((anime, index) => {
-          if (index < 6) {
+         
             let status = anime.status;
             let season = anime.season_period;
             let genres = anime.genres;
@@ -82,8 +82,7 @@ export default function HomeContent(props) {
                 id={anime.id}
               />
             );
-          }
-          return null
+          
         })
       ) : (
         <Fuckusers firstSearch={false} isLoading={true} />
