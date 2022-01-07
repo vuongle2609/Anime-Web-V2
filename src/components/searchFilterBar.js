@@ -314,8 +314,8 @@ function FilterBar(props) {
           <Link to="/More?typeload=collection">
             <span className="">Collection</span>
           </Link>
-          <Link to="/More?typeload=history">
-            <span className="">History</span>
+          <Link to="/More?typeload=blacklist">
+            <span className="">Black list</span>
           </Link>
         </div>
         <div className="search-box">
