@@ -20,7 +20,7 @@ function ActionButtonsWatch(props) {
     }
   }, []);
 
-  const handleCollect = () => {
+  const handleCollect = (props) => {
     if (!localStorage.getItem("collection")) {
       const a = [
         {
@@ -75,11 +75,15 @@ function ActionButtonsWatch(props) {
         </div>
       </Link>
       {isCollected ? (
-        <div onClick={handleCollect} style={{ backgroundColor: "#ff7675" }}>
+        <div onClick={() => {
+          handleCollect(props)
+        }} style={{ backgroundColor: "#ff7675" }}>
           <box-icon color="#fff" name="heart" type="solid"></box-icon>
         </div>
       ) : (
-        <div onClick={handleCollect}>
+        <div onClick={() => {
+          handleCollect(props)
+        }}>
           <box-icon color="#fff" name="heart" type="solid"></box-icon>
         </div>
       )}

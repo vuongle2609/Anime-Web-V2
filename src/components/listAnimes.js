@@ -137,7 +137,9 @@ function MoreAnimes() {
       </div>
     </div>
   ) : (
-    nothing
+    <div className="body grid wide home">
+      {nothing}
+    </div>
   );
 }
 
