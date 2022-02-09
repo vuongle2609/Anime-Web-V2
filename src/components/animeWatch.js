@@ -1,10 +1,5 @@
 import { useState, useEffect } from "react";
-import {
-  Player,
-  Video,
-  DefaultUi,
-  DefaultControls,
-} from "@vime/react";
+import ReactHlsPlayer from "react-hls-player";
 import "@vime/core/themes/default.css";
 import corn from "../img/popcorn.gif";
 import { useLocation } from "react-router-dom";
@@ -29,7 +24,7 @@ function AnimeWatch() {
     const getSub = async (idAnime) => {
       try {
         const res = await fetch(
-          `https://api.aniapi.com/v1/episode?anime_id=${idAnime}&source=gogoanime&locale=en`
+          `https://api.aniapi.com/v1/episode?anime_id=${idAnime}&is_dub=false&locale=en`
         );
         const data = await res.json();
         setSubdata(data.data.documents);
@@ -41,7 +36,7 @@ function AnimeWatch() {
     const getDub = async (idAnime) => {
       try {
         const res = await fetch(
-          `https://api.aniapi.com/v1/episode?anime_id=${idAnime}&source=gogoanime_dub&locale=en`
+          `https://api.aniapi.com/v1/episode?anime_id=${idAnime}&is_dub=true&locale=en`
         );
         const data = await res.json();
         setDubdata(data.data.documents);
@@ -92,38 +87,38 @@ function AnimeWatch() {
             {!choose ? "Choose your episode" : "Episode " + currentEp}
           </h1>
           <div className="anime-video">
-            <Player>
-              <Video crossOrigin="" poster={corn}>
-                <source data-src={videoSrc} type="video/mp4" />
-              </Video>
-
-              <DefaultUi noControls>
-                <DefaultControls hideOnMouseLeave activeDuration={2000} />
-              </DefaultUi>
-            </Player>
+            <ReactHlsPlayer
+              src={videoSrc}
+              autoPlay={false}
+              controls={true}
+              width="100%"
+              height="auto"
+            />
           </div>
           {subdata ? (
             <div className="list-ep">
               <h3>English Sub</h3>
               <ul>
-                {subdata.map((ep, index) => (
-                  <li
-                    key={index}
-                    onClick={() => {
-                      setVideoSrc(ep.video);
-                      setCurrentEp(ep.number);
-                      setCurrentType("sub");
-                      setChoose(true);
-                    }}
-                    className={
-                      ep.number === currentEp && currentType === "sub"
-                        ? `ep-${ep.number}-sub active`
-                        : `ep-${ep.number}-sub `
-                    }
-                  >
-                    ep {ep.number}
-                  </li>
-                ))}
+                {subdata.map((ep, index) => {
+                  return (
+                    <li
+                      key={index}
+                      onClick={() => {
+                        setVideoSrc(ep.video);
+                        setCurrentEp(ep.number);
+                        setCurrentType("sub");
+                        setChoose(true);
+                      }}
+                      className={
+                        ep.number === currentEp && currentType === "sub"
+                          ? `ep-${ep.number}-sub active`
+                          : `ep-${ep.number}-sub `
+                      }
+                    >
+                      ep {ep.number}
+                    </li>
+                  );
+                })}
               </ul>
             </div>
           ) : (

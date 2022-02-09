@@ -251,7 +251,7 @@ function ButtonPlay(props) {
     const checkSub = async (idAnime) => {
       try {
         const res = await fetch(
-          `https://api.aniapi.com/v1/episode?anime_id=${idAnime}&source=gogoanime&locale=en`
+          `https://api.aniapi.com/v1/episode?anime_id=${idAnime}&is_dub=false&locale=en`
         );
         const data = await res.json();
         if (data.status_code === 404) {
@@ -265,7 +265,7 @@ function ButtonPlay(props) {
     const checkDub = async (idAnime) => {
       try {
         const res = await fetch(
-          `https://api.aniapi.com/v1/episode?anime_id=${idAnime}&source=gogoanime_dub&locale=en`
+          `https://api.aniapi.com/v1/episode?anime_id=${idAnime}&is_dub=true&locale=en`
         );
         const data = await res.json();
         if (data.status_code === 404) {
@@ -501,6 +501,7 @@ function AnimeDetail() {
     document.querySelector(".box-nav").classList.remove("active");
     document.querySelector(".back-btn").classList.add("active");
 
+    setAnimeData(false)
     if (isRandom) {
       const getRandom = async () => {
         const res = await fetch(
