@@ -92,7 +92,7 @@ function HomeSlider() {
         <Slider {...settings}>
           
           <div className="slider-cover">
-          <Link to="/AnimeDetail?id=1862">
+          <Link to="/AnimeDetail?id=1859">
             <SliderBox
               title="Stein;Gate"
               genres="Drama, Sci-Fi, Suspense"
@@ -102,7 +102,7 @@ function HomeSlider() {
           </div>
           
           <div className="slider-cover">
-          <Link to="/AnimeDetail?id=1487">
+          <Link to="/AnimeDetail?id=1485">
             <SliderBox
               title="Fullmetal Alchemist: Brotherhood"
               genres="Action, Adventure, Comedy, Drama, Fantasy"
@@ -112,7 +112,7 @@ function HomeSlider() {
           </div>
           
           <div className="slider-cover">
-          <Link to="/AnimeDetail?id=6529">
+          <Link to="/AnimeDetail?id=6671">
             <SliderBox
               title="Kimi no Na wa"
               genres="Drama, Romance, Supernatural"

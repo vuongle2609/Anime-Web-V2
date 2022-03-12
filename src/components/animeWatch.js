@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import ReactHlsPlayer from "react-hls-player";
 import "@vime/core/themes/default.css";
-import corn from "../img/popcorn.gif";
 import { useLocation } from "react-router-dom";
 
 function AnimeWatch() {
