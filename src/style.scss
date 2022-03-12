@@ -1553,6 +1553,10 @@ vm-player {
   iframe {
     height: auto !important;
   }
+
+  .header {
+    margin-top: 0px !important;
+  }
 }
 
 @media (max-width: 480px) {
